@@ -1,24 +1,14 @@
 package pim4sem.aev.business.funcionarios;
 
-import java.util.Date;
+public class SetorEstoque extends Funcionario{
+	
+	//Métodos
 
-public class SetorCompras extends Funcionario implements IAdministrar {
-
-	public SetorCompras(){
+	public void verificarNiveisProdutosEstoque(){
 		
 	}
 	
-	//Métodos
-	
-	public void registraVenda(double recebeValor, int recebeMatriculaFuncionario){
-				
-	}
-	
-	public void registraVenda(double recebeValor, int recebeMatriculaFuncionario, Date dataVenda){
-	
-	}	
-	
-	public void registraCompra(){
+	public void solicitaCompraProduto(int codigoProduto, int quantidadeCompraProduto){
 		
 	}
 
@@ -49,22 +39,4 @@ public class SetorCompras extends Funcionario implements IAdministrar {
 	public void pesquisaFuncionario(int recebeMatricula) {
 		
 	}
-
-	@Override
-	public void adicionarRegistroHistorico() {
-		
-	}
-
-	@Override
-	public void removerRegistroHistorico() {
-		
-	}
-
-	@Override
-	public void alterarRegistroHistorico() {
-		
-	}
-	
-	
-	
 }

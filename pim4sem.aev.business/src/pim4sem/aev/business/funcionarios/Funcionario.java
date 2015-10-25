@@ -1,7 +1,7 @@
 package pim4sem.aev.business.funcionarios;
 
-public interface Funcionario {
-	
+public abstract class Funcionario {
+
 	int matricula = 0;
 	String nome = null;
 	String cargo = null;
@@ -9,14 +9,14 @@ public interface Funcionario {
 	String gerente = null;
 	boolean cargoGerencial = false;
 	
-	public void CadastraFuncionario(String recebeNome, String recebeCargo, double recebeSalario,
+	public abstract void cadastraFuncionario(String recebeNome, String recebeCargo, double recebeSalario,
 			String recebeGerente, boolean recebeCargoGerencial);
 	
-	public void AlterarCargoFuncionario(String recebeNome, int recebeMatricula);
+	public abstract void alterarCargoFuncionario(String recebeNome, int recebeMatricula);
 	
-	public void DemitirFuncionario(String recebeNome, int recebeMatricula);
+	public abstract void demitirFuncionario(String recebeNome, int recebeMatricula);
 	
-	public void PesquisaFuncionario(String recebeNome);
-	public void PesquisaFuncionario(int recebeMatricula);
+	public abstract void pesquisaFuncionario(String recebeNome);
+	public abstract void pesquisaFuncionario(int recebeMatricula);
 	
 }

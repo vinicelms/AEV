@@ -2,24 +2,20 @@ package pim4sem.aev.business.funcionarios;
 
 import java.util.Date;
 
-public class SetorCompras extends Funcionario implements IAdministrar {
+public class SetorFinanceiro extends Funcionario{
 
-	public SetorCompras(){
+	//Métodos da Classe
+	public void aprovaPagamento(int idCompra, double recebeValorCompra){
 		
 	}
 	
-	//Métodos
-	
-	public void registraVenda(double recebeValor, int recebeMatriculaFuncionario){
-				
+	public void negaPagamento(int idCompra){
+		
 	}
 	
-	public void registraVenda(double recebeValor, int recebeMatriculaFuncionario, Date dataVenda){
-	
-	}	
-	
-	public void registraCompra(){
+	public Date retornaPrevisaoPagamento(int idCompra, Date dataPrevista){
 		
+		return new Date();
 	}
 
 	//Métodos sobrescritos
@@ -32,7 +28,7 @@ public class SetorCompras extends Funcionario implements IAdministrar {
 
 	@Override
 	public void alterarCargoFuncionario(String recebeNome, int recebeMatricula) {
-		
+			
 	}
 
 	@Override
@@ -50,21 +46,5 @@ public class SetorCompras extends Funcionario implements IAdministrar {
 		
 	}
 
-	@Override
-	public void adicionarRegistroHistorico() {
-		
-	}
 
-	@Override
-	public void removerRegistroHistorico() {
-		
-	}
-
-	@Override
-	public void alterarRegistroHistorico() {
-		
-	}
-	
-	
-	
 }
