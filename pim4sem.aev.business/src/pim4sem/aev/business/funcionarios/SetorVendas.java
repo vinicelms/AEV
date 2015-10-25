@@ -16,16 +16,15 @@ public class SetorVendas implements Funcionario {
 	}
 	
 	public void DemitirFuncionario(String recebeNome, int recebeMatricula){
-		recebeNome = nome;
-		recebeMatricula = matricula;
+		
 	}
 	
 	public void PesquisaFuncionario(String recebeNome){
-		recebeNome = nome;
+
 	}
 	
 	public void PesquisaFuncionario(int recebeMatricula){
-		recebeMatricula = matricula;
+
 	}
 	
 }
