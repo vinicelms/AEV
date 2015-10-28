@@ -36,5 +36,4 @@ public class CartaoCredito extends FluxoCaixa{
 	public void defineDataFinalizacao() {
 		
 	}
-	
 }

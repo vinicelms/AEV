@@ -30,7 +30,4 @@ public class SetorFiscal extends Funcionario{
 	public void pesquisaFuncionario(int recebeMatricula) {
 				
 	}
-
-	
-
 }

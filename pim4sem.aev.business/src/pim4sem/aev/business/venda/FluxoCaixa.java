@@ -17,7 +17,5 @@ public abstract class FluxoCaixa extends CompraVenda{
 	public abstract void pesquisarConta();
 	public abstract void finalizarConta();
 	public abstract void adicionarConta();
-	public abstract void defineDataFinalizacao();
-	
-	
+	public abstract void defineDataFinalizacao();	
 }

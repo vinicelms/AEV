@@ -45,6 +45,4 @@ public class SetorFinanceiro extends Funcionario{
 	public void pesquisaFuncionario(int recebeMatricula) {
 		
 	}
-
-
 }
