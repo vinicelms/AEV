@@ -50,15 +50,23 @@ CREATE TABLE Funcionario
     FOREIGN KEY (id_cargo) REFERENCES cargo (id_cargo)
 );
 
-CREATE TABLE usuario
+CREATE TABLE FuncaoUsuario
 (
-	matricula_func			INT				NOT NULL,
-    id_setor				INT				NOT NULL,
-    id_cargo				INT 			NOT NULL,
-    PRIMARY KEY (matricula_func),
-    FOREIGN KEY (matricula_func) REFERENCES Funcionario (matricula),
-    FOREIGN KEY (id_setor) REFERENCES setor (id_setor),
-    FOREIGN KEY (id_cargo) REFERENCES cargo (id_cargo)
+	id_funcao					INT				NOT NULL	AUTO_INCREMENT,
+    nome_funcao					VARCHAR(50)		NOT NULL,
+    PRIMARY KEY (id_funcao)
+);
+
+CREATE TABLE Usuario
+(
+	id_usuario					INT				NOT NULL	AUTO_INCREMENT,
+    usu_login					INT				NOT NULL,
+    usu_senha					VARCHAR(128)	NOT NULL,
+    usu_nome					VARCHAR(50)		NOT NULL,
+    e_funcionario				BIT				NOT NULL, -- Identifica com True ou False se ele é funcionario
+    id_funcao					INT				NOT NULL,
+    PRIMARY KEY (id_usuario),
+    FOREIGN KEY (id_funcao) REFERENCES FuncaoUsuario (id_funcao)
 );
 
 CREATE TABLE Cliente
