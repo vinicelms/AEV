@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Produto {
+
 	private int codigo;
 	private String nome;
 	private double valor;
@@ -13,7 +14,46 @@ public class Produto {
 	private char posicaoEstoque;
 	private int posicaoPrateleira;
 	
+	//Gets do atributos
 	
+	public int getCodigo() {
+		return codigo;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public double getValor() {
+		return valor;
+	}
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public int getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+
+	public int getQuantidadeMinima() {
+		return quantidadeMinima;
+	}
+
+
+	public char getPosicaoEstoque() {
+		return posicaoEstoque;
+	}
+
+
+	public int getPosicaoPrateleira() {
+		return posicaoPrateleira;
+	}
 	
 	//Métodos
 	
