@@ -30,7 +30,7 @@ CREATE TABLE Gerente
     nome					VARCHAR(50)		NOT NULL,
     id_setor				INT				NOT NULL,
     PRIMARY KEY (id_gerente),
-    FOREIGN KEY (id_setor) REFERENCES setor (id_setor)
+    FOREIGN KEY (id_setor) REFERENCES Setor (id_setor)
 );
 
 CREATE TABLE Funcionario
@@ -46,8 +46,8 @@ CREATE TABLE Funcionario
     ano_nascimento			DATE			NOT NULL,
     ano_contratacao			DATETIME		NOT NULL,
     PRIMARY KEY (matricula),
-    FOREIGN KEY (id_gerente) REFERENCES gerente (id_gerente),
-    FOREIGN KEY (id_cargo) REFERENCES cargo (id_cargo)
+    FOREIGN KEY (id_gerente) REFERENCES Gerente (id_gerente),
+    FOREIGN KEY (id_cargo) REFERENCES Cargo (id_cargo)
 );
 
 CREATE TABLE FuncaoUsuario
@@ -136,8 +136,8 @@ CREATE TABLE Venda
     qtd_produto				INT				NOT NULL,
     id_nota_fiscal			INT				NOT NULL,
     PRIMARY KEY (id_venda),
-    FOREIGN KEY (id_produto) REFERENCES produto (id_produto),
-    FOREIGN KEY (id_nota_fiscal) REFERENCES notaFiscal (id_nota_fiscal)
+    FOREIGN KEY (id_produto) REFERENCES Produto (id_produto),
+    FOREIGN KEY (id_nota_fiscal) REFERENCES NotaFiscal (id_nota_fiscal)
 );
 
 CREATE TABLE Compra
