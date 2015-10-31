@@ -1,4 +1,4 @@
-package pim4sem.aev.business.venda;
+package pim4sem.aev.business.controlefinanceiro;
 
 public abstract class CompraVenda {
 	private int codigoProduto;

@@ -1,14 +1,20 @@
-package pim4sem.aev.business.venda;
+package pim4sem.aev.business.controlefinanceiro;
 
-public class CartaoDebito extends FluxoCaixa{
+public class CartaoCredito extends FluxoCaixa{
 	private int numeroCartao;
+	private int numeroParcelasDisponiveis;
+	private int numeroParcelasSolicitadas;
 	
 	//Métodos
 	
-	public void consultarDisponibilidadeSaldo(){
+	public void consultaDisponilidadeSaldo(){
 		
 	}
 	
+	public void verificaDisponibilidadeParcelas(){
+		
+	}
+
 	//Métodos sobrescritos
 
 	@Override
@@ -29,6 +35,5 @@ public class CartaoDebito extends FluxoCaixa{
 	@Override
 	public void defineDataFinalizacao() {
 		
-	}	
-
+	}
 }

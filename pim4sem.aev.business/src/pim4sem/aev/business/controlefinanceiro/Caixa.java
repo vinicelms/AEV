@@ -1,4 +1,4 @@
-package pim4sem.aev.business.venda;
+package pim4sem.aev.business.controlefinanceiro;
 
 public class Caixa {
 	private int idCompra;

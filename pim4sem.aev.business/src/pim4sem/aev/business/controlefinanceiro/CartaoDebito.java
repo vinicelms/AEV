@@ -1,15 +1,12 @@
-package pim4sem.aev.business.venda;
+package pim4sem.aev.business.controlefinanceiro;
 
-public class Dinheiro extends FluxoCaixa{
-	private double valorNotas;
-	private double trocoNotas;
-	
+public class CartaoDebito extends FluxoCaixa{
+	private int numeroCartao;
 	
 	//Métodos
 	
-	public double calculaTroco(double recebeValorConta, double recebeValorNotas){
-	
-		return 0;
+	public void consultarDisponibilidadeSaldo(){
+		
 	}
 	
 	//Métodos sobrescritos
@@ -32,5 +29,6 @@ public class Dinheiro extends FluxoCaixa{
 	@Override
 	public void defineDataFinalizacao() {
 		
-	}
+	}	
+
 }
