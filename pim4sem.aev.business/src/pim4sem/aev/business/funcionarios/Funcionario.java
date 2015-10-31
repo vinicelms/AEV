@@ -2,15 +2,34 @@ package pim4sem.aev.business.funcionarios;
 
 public abstract class Funcionario {
 
-	int matricula = 0;
-	String nome = null;
-	String cargo = null;
-	double salario = 0;
-	String gerente = null;
-	boolean cargoGerencial = false;
+	protected int matricula;
+	protected String nome;
+	protected String cargo;
+	protected double salario;
+	protected String gerente;
+	protected boolean cargoGerencial;
 	
-	public abstract void cadastraFuncionario(String recebeNome, String recebeCargo, double recebeSalario,
-			String recebeGerente, boolean recebeCargoGerencial);
+	public void gerenciaDados(int recebeMatricula, String recebeNome, String recebeCargo, double recebeSalario,
+			String recebeGerente, boolean recebeCargoGerencial){
+		
+		matricula = recebeMatricula; 
+		nome = recebeNome;
+		cargo = recebeCargo;
+		salario = recebeSalario;
+		gerente = recebeGerente;
+		cargoGerencial = recebeCargoGerencial;
+	}
+	
+	public void cadastraFuncionario(){
+		int ultimaMatricula;
+		
+		/* Pegar último ID cadastrado
+		 e atribui à variável ultimaMatricula */ 
+		
+		
+		
+		
+	}
 	
 	public abstract void alterarCargoFuncionario(String recebeNome, int recebeMatricula);
 	
