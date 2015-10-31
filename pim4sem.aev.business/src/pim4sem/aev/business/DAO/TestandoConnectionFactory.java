@@ -10,7 +10,7 @@ public class TestandoConnectionFactory {
 		
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		System.out.println("Conexão aberta!");
+		System.out.println("Conexão aberta, Javão!");
 		
 		conn.close();
 
