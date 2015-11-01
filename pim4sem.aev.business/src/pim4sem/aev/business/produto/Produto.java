@@ -19,13 +19,61 @@ public class Produto {
 	private char posicaoEstoque;
 	private int posicaoPrateleira;
 	
-	//Gets e Sets do atributos
+	public void registraProduto(String recebeNome, String recebeMarca, String recebeCor, double recebeValorCompra,
+			double recebeValorVenda, String recebeDescricao, int recebeQuantidade){
+		setNome(recebeNome);
+		setMarca(recebeMarca);
+		setCor(recebeCor);
+		setValorCompra(recebeValorCompra);
+		setValorVenda(recebeValorVenda);
+		setDescricao(recebeDescricao);
+		setQuantidadeEstoque(recebeQuantidade);
+		
+		/*recebeNome = nome;
+		recebeMarca = marca;
+		recebeCor = cor;
+		recebeValorCompra = valorCompra;
+		recebeValorVenda = valorVenda;
+		recebeDescricao = descricao;
+		recebeQuantidade = quantidadeEstoque;*/
+	}
+	
 
-	public void registraProduto(String recebeNome, double recebeValor, 
-								int recebeQuantidade){
+	public List pesquisaProduto(int recebeCodigo){
+		return new ArrayList();
+	}
+	
+
+	public List pesquisaProduto(String recebeNome){
+		return new ArrayList();
 		
 	}
 	
+	public void alteraProduto(int recebeCodigo, String recebeNome, 
+							double recebeValor, String recebeDescricao){
+		
+	}
+	
+	public void alteraProduto(int recebeCodigo, String recebeNome){
+		
+	}
+	
+	public void alteraProduto(int recebeCodigo, double recebeValor){
+		
+	}
+	
+	//ATENÇÃO!! IMPOSSÍVEL FAZER SOBRECARGA ONDE OS TIPOS DE 2 MÉTODOS SAO IGUAIS
+	/*
+	public void alteraProduto(int recebeCodigo, String recebeDescricao){
+		
+	}
+	*/
+
+	public void alteraProduto(int recebeCodigo, int recebeQuantidadeMinima){
+		
+	}
+	
+	//Gets e Sets do atributos
 	
 	public int getCodigo() {
 		return codigo;
@@ -156,38 +204,4 @@ public class Produto {
 		this.posicaoPrateleira = posicaoPrateleira;
 	}
 
-
-	public List pesquisaProduto(int recebeCodigo){
-		return new ArrayList();
-	}
-	
-
-	public List pesquisaProduto(String recebeNome){
-		return new ArrayList();
-		
-	}
-	
-	public void alteraProduto(int recebeCodigo, String recebeNome, 
-							double recebeValor, String recebeDescricao){
-		
-	}
-	
-	public void alteraProduto(int recebeCodigo, String recebeNome){
-		
-	}
-	
-	public void alteraProduto(int recebeCodigo, double recebeValor){
-		
-	}
-	
-	//ATENÇÃO!! IMPOSSÍVEL FAZER SOBRECARGA ONDE OS TIPOS DE 2 MÉTODOS SAO IGUAIS
-	/*
-	public void alteraProduto(int recebeCodigo, String recebeDescricao){
-		
-	}
-	*/
-
-	public void alteraProduto(int recebeCodigo, int recebeQuantidadeMinima){
-		
-	}
 }
