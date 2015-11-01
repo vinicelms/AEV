@@ -1,6 +1,9 @@
 package pim4sem.aev.business.funcionarios;
 
 import java.sql.Date;
+import java.sql.SQLException;
+
+import pim4sem.aev.business.DAO.FuncionarioDAO;
 
 public abstract class Funcionario {
 
@@ -14,6 +17,7 @@ public abstract class Funcionario {
 	protected boolean cargoGerencial;
 	protected Date dataNascimento;
 	protected Date dataContratacao;
+	protected FuncionarioDAO bd = new FuncionarioDAO();
 	
 	public void gerenciaDados(int recebeMatricula, String recebeNome, String recebeCargo, double recebeSalario,
 			String recebeGerente, boolean recebeCargoGerencial){
@@ -26,24 +30,28 @@ public abstract class Funcionario {
 		cargoGerencial = recebeCargoGerencial;
 	}
 	
-	public void cadastraFuncionario(){
-		int ultimaMatricula;
-		
-		/* Pegar último ID cadastrado
-		 e atribui à variável ultimaMatricula */ 
-		
-		
-		
-		
+	public void cadastraFuncionario() throws SQLException{
+		bd.adicionaFuncionario(this);		
 	}
 	
-	public abstract void alterarCargoFuncionario(String recebeNome, int recebeMatricula);
+	public void pesquisaFuncionario(int recebeMatricula) throws SQLException{
+		Funcionario func = (Funcionario) new Object();
+		func = bd.carregaFuncionario(recebeMatricula);
+	}
 	
-	public abstract void demitirFuncionario(String recebeNome, int recebeMatricula);
-	
-	public abstract void pesquisaFuncionario(String recebeNome);
-	public abstract void pesquisaFuncionario(int recebeMatricula);
 
+	public void alterarCargoFuncionario(int recebeMatricula) throws SQLException{
+		bd.alteraFuncionario(this);
+	}
+	
+	public void demitirFuncionario(int recebeMatricula) throws SQLException{
+		bd.removerFuncionario(recebeMatricula);
+	}
+	
+	//public abstract void pesquisaFuncionario(String recebeNome);
+
+	// GETTERS AND SETTERS
+	
 	public int getMatricula() {
 		return matricula;
 	}
@@ -83,5 +91,47 @@ public abstract class Funcionario {
 	public Date getDataContratacao() {
 		return dataContratacao;
 	}
+
+	public void setMatricula(int matricula) {
+		this.matricula = matricula;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+	public void setSetor(String setor) {
+		this.setor = setor;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+
+	public void setGerente(String gerente) {
+		this.gerente = gerente;
+	}
+
+	public void setCargoGerencial(boolean cargoGerencial) {
+		this.cargoGerencial = cargoGerencial;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public void setDataContratacao(Date dataContratacao) {
+		this.dataContratacao = dataContratacao;
+	}
+	
+	
 	
 }
