@@ -13,16 +13,27 @@ public class Produto {
 	private double valorVenda;
 	private String descricao;
 	private int tamanho;
-	private int tipoProduto;
+	private String tipoProduto;
 	private int quantidadeEstoque;
 	private int quantidadeMinima;
 	private char posicaoEstoque;
 	private int posicaoPrateleira;
 	
-	//Gets do atributos
+	//Gets e Sets do atributos
+
+	public void registraProduto(String recebeNome, double recebeValor, 
+								int recebeQuantidade){
+		
+	}
+	
 	
 	public int getCodigo() {
 		return codigo;
+	}
+
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 
@@ -31,34 +42,18 @@ public class Produto {
 	}
 
 
-	public String getDescricao() {
-		return descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 
-	public int getQuantidadeEstoque() {
-		return quantidadeEstoque;
-	}
-
-
-	public int getQuantidadeMinima() {
-		return quantidadeMinima;
-	}
-
-
-	public char getPosicaoEstoque() {
-		return posicaoEstoque;
-	}
-
-
-	public int getPosicaoPrateleira() {
-		return posicaoPrateleira;
-	}
-	
-	//Métodos
-	
 	public String getMarca() {
 		return marca;
+	}
+
+
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 
 
@@ -67,8 +62,18 @@ public class Produto {
 	}
 
 
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+
+
 	public double getValorCompra() {
 		return valorCompra;
+	}
+
+
+	public void setValorCompra(double valorCompra) {
+		this.valorCompra = valorCompra;
 	}
 
 
@@ -77,22 +82,81 @@ public class Produto {
 	}
 
 
+	public void setValorVenda(double valorVenda) {
+		this.valorVenda = valorVenda;
+	}
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+
 	public int getTamanho() {
 		return tamanho;
 	}
 
 
-	public int getTipoProduto() {
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
+	}
+
+
+	public String getTipoProduto() {
 		return tipoProduto;
 	}
 
 
-	public void registraProduto(String recebeNome, double recebeValor, 
-								int recebeQuantidade){
-		
+	public void setTipoProduto(String tipoProduto) {
+		this.tipoProduto = tipoProduto;
 	}
-	
-	
+
+
+	public int getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+
+	public void setQuantidadeEstoque(int quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
+	}
+
+
+	public int getQuantidadeMinima() {
+		return quantidadeMinima;
+	}
+
+
+	public void setQuantidadeMinima(int quantidadeMinima) {
+		this.quantidadeMinima = quantidadeMinima;
+	}
+
+
+	public char getPosicaoEstoque() {
+		return posicaoEstoque;
+	}
+
+
+	public void setPosicaoEstoque(char posicaoEstoque) {
+		this.posicaoEstoque = posicaoEstoque;
+	}
+
+
+	public int getPosicaoPrateleira() {
+		return posicaoPrateleira;
+	}
+
+
+	public void setPosicaoPrateleira(int posicaoPrateleira) {
+		this.posicaoPrateleira = posicaoPrateleira;
+	}
+
+
 	public List pesquisaProduto(int recebeCodigo){
 		return new ArrayList();
 	}

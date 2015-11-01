@@ -2,15 +2,18 @@ package pim4sem.aev.business.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import pim4sem.aev.business.produto.*;
 
 public class ProdutoDAO {
 	
-	private static Connection conn = new ConnectionFactory().getConnection();
+	private Connection conn = new ConnectionFactory().getConnection();
 	
-	static void cadastraProduto(Produto produto) throws SQLException{
+	public void cadastraProduto(Produto produto) throws SQLException{
 		
 		StringBuffer sql = new StringBuffer();
 		
@@ -25,7 +28,7 @@ public class ProdutoDAO {
 		stmt.setString(3, produto.getCor());
 		stmt.setString(4, produto.getDescricao());
 		stmt.setInt(5, produto.getTamanho());
-		stmt.setInt(6, produto.getTipoProduto());
+		stmt.setString(6, produto.getTipoProduto());
 		stmt.setInt(7, produto.getQuantidadeMinima());
 		stmt.setInt(8, produto.getQuantidadeEstoque());
 		
@@ -41,6 +44,61 @@ public class ProdutoDAO {
 			conn.close();
 		}
 		
+	}
+	
+	public List<Produto> retornaProduto(String recebeColuna, String recebeValor) throws SQLException{
+		List<Produto> prod = new ArrayList<Produto>();
+		
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("SELECT prod.id_produto AS Codigo, prod.nome_produto AS Nome, ");
+		sql.append("prod.marca_produto AS Marca, prod.cor_produto AS Cor, ");
+		sql.append("prod.descricao_produto as Descricao, prod.tamanho_produto as Tamanho, ");
+		sql.append("tp_prod.tipo_produto as TipoProduto, prod.qtd_minima as QtdMinima, ");
+		sql.append("prod.qtd_estoque as QtdEstoque, prod.valor_compra as ValorCompra, ");
+		sql.append("prod.valor_venda as ValorVenda FROM produto AS prod ");
+		sql.append("INNER JOIN tipoproduto AS tp_prod on tp_prod.id_tipo_produto = prod.id_tipo_produto");		
+		if(recebeValor != null && recebeColuna != null){
+			sql.append(" WHERE ? = ?");
+		}
+		
+		PreparedStatement stmt = conn.prepareStatement(sql.toString());
+		
+		if(recebeValor != null && recebeColuna != null){
+			stmt.setString(1, recebeColuna);
+			stmt.setString(2, recebeValor);
+		}
+		
+		try {
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				Produto produto = new Produto();
+				
+				produto.setCodigo(rs.getInt("Codigo"));
+				produto.setNome(rs.getString("Nome"));
+				produto.setMarca(rs.getString("Marca"));
+				produto.setCor(rs.getString("Cor"));
+				produto.setDescricao(rs.getString("Descricao"));
+				produto.setTamanho(rs.getInt("Tamanho"));
+				produto.setTipoProduto(rs.getString("TipoProduto"));
+				produto.setQuantidadeMinima(rs.getInt("QtdMinima"));
+				produto.setQuantidadeEstoque(rs.getInt("QtdEstoque"));
+				produto.setValorCompra(rs.getDouble("ValorCompra"));
+				produto.setValorVenda(rs.getDouble("ValorVenda"));
+				
+				prod.add(produto);
+			}
+			rs.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+		
+		return prod;
 	}
 	
 }
