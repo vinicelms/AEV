@@ -8,13 +8,13 @@ import pim4sem.aev.business.funcionarios.Funcionario;
 
 public class FuncionarioDAO {
 
-	private Connection conn;
+	private static Connection conn;
 	
-	public FuncionarioDAO(){
+//	public FuncionarioDAO(){
+//	}
+	
+	public static void adicionaFuncionario(Funcionario funcionario) throws SQLException{
 		conn = new ConnectionFactory().getConnection();
-	}
-	
-	public void adicionaFuncionario(Funcionario funcionario) throws SQLException{
 		
 		StringBuffer sql = new StringBuffer();
 		CargoDAO cargo = new CargoDAO();
