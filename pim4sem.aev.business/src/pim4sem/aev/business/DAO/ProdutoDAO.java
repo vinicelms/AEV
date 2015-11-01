@@ -8,9 +8,9 @@ import pim4sem.aev.business.produto.*;
 
 public class ProdutoDAO {
 	
-	private Connection conn = new ConnectionFactory().getConnection();
+	private static Connection conn = new ConnectionFactory().getConnection();
 	
-	public void cadastraProduto(Produto produto) throws SQLException{
+	static void cadastraProduto(Produto produto) throws SQLException{
 		
 		StringBuffer sql = new StringBuffer();
 		
@@ -20,13 +20,25 @@ public class ProdutoDAO {
 		
 		PreparedStatement stmt = conn.prepareStatement(sql.toString());
 		
+		stmt.setString(1, produto.getNome());
+		stmt.setString(2, produto.getMarca());
+		stmt.setString(3, produto.getCor());
+		stmt.setString(4, produto.getDescricao());
+		stmt.setInt(5, produto.getTamanho());
+		stmt.setInt(6, produto.getTipoProduto());
+		stmt.setInt(7, produto.getQuantidadeMinima());
+		stmt.setInt(8, produto.getQuantidadeEstoque());
+		
 		try {
+			
+			stmt.execute();
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		finally {
-			
+			stmt.close();
+			conn.close();
 		}
 		
 	}

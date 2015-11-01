@@ -8,13 +8,13 @@ import com.mysql.jdbc.Connection;
 
 public class CargoDAO {
 
-	private Connection conn;
+	private static Connection conn;
 	
 	public CargoDAO(){
-		conn = new ConnectionFactory().getConnection();
+		Connection conn = new ConnectionFactory().getConnection();
 	}
 	
-	public int retornaIdCargo(String recebeCargo) throws SQLException{
+	static int retornaIdCargo(String recebeCargo) throws SQLException{
 		int idCargo = 0;
 		
 		String sql = "SELECT id_cargo FROM Cargo WHERE nome_cargo = ?";

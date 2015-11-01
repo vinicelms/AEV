@@ -7,8 +7,13 @@ public class Produto {
 
 	private int codigo;
 	private String nome;
-	private double valor;
+	private String marca;
+	private String cor;
+	private double valorCompra;
+	private double valorVenda;
 	private String descricao;
+	private int tamanho;
+	private int tipoProduto;
 	private int quantidadeEstoque;
 	private int quantidadeMinima;
 	private char posicaoEstoque;
@@ -23,11 +28,6 @@ public class Produto {
 
 	public String getNome() {
 		return nome;
-	}
-
-
-	public double getValor() {
-		return valor;
 	}
 
 
@@ -57,6 +57,36 @@ public class Produto {
 	
 	//Métodos
 	
+	public String getMarca() {
+		return marca;
+	}
+
+
+	public String getCor() {
+		return cor;
+	}
+
+
+	public double getValorCompra() {
+		return valorCompra;
+	}
+
+
+	public double getValorVenda() {
+		return valorVenda;
+	}
+
+
+	public int getTamanho() {
+		return tamanho;
+	}
+
+
+	public int getTipoProduto() {
+		return tipoProduto;
+	}
+
+
 	public void registraProduto(String recebeNome, double recebeValor, 
 								int recebeQuantidade){
 		
