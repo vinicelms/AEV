@@ -83,23 +83,23 @@ CREATE TABLE Cliente
 CREATE TABLE TipoProduto
 (
 	id_tipo_produto			INT				NOT NULL	AUTO_INCREMENT,
-    tipo_produto			VARCHAR(20)		NOT NULL, -- Valores como: Sapato Social, Sandália, Bota, Tênis... e outros
+    tipo_produto			VARCHAR(20)		NOT NULL	UNIQUE, -- Valores como: Sapato Social, Sandália, Bota, Tênis... e outros
     PRIMARY KEY (id_tipo_produto)
 );
 
 CREATE TABLE Produto
 (
 	id_produto				INT				NOT NULL	AUTO_INCREMENT,
-    nome_produto			VARCHAR(20)		NOT NULL,
-    marca_produto			VARCHAR(10)		NOT NULL,
-    cor_produto				VARCHAR(10)		NOT NULL,
-    descricao_produto		VARCHAR(200)	NULL,
+    nome_produto			VARCHAR(50)		NOT NULL,
+    marca_produto			VARCHAR(40)		NOT NULL,
+    cor_produto				VARCHAR(25)		NOT NULL,
+    descricao_produto		VARCHAR(500)	NULL,
     tamanho_produto			INT				NOT NULL,
     id_tipo_produto			INT				NOT NULL,
     qtd_minima				INT				NOT NULL,
     qtd_estoque				INT				NOT NULL,
-    valor_compra			DECIMAL(4,2)	NOT NULL,
-    valor_venda				DECIMAL(4,2)	NOT NULL,
+    valor_compra			DECIMAL(5,2)	NOT NULL,
+    valor_venda				DECIMAL(5,2)	NOT NULL,
     PRIMARY KEY (id_produto),
     FOREIGN KEY (id_tipo_produto) REFERENCES TipoProduto (id_tipo_produto)
 );
@@ -117,7 +117,7 @@ CREATE TABLE NotaFiscal
 (
 	id_nota_fiscal			INT				NOT NULL	AUTO_INCREMENT,
     matricula_func			INT				NOT NULL,
-    valor_nota				DECIMAL(5,2)	NOT NULL,
+    valor_nota				DECIMAL(7,2)	NOT NULL,
     tipo_movimentacao		CHAR(1)			NOT NULL, -- C para compra; V para venda
     data_vencimento			DATETIME		NOT NULL,
     data_pagamento			DATETIME		NULL,
@@ -132,7 +132,7 @@ CREATE TABLE Venda
 (
 	id_venda				INT				NOT NULL	AUTO_INCREMENT,
     id_produto				INT				NOT NULL,
-    valor_produto			DECIMAL(4,2)	NOT NULL,
+    valor_produto			DECIMAL(7,2)	NOT NULL,
     qtd_produto				INT				NOT NULL,
     id_nota_fiscal			INT				NOT NULL,
     PRIMARY KEY (id_venda),
@@ -144,7 +144,7 @@ CREATE TABLE Compra
 (
 	id_compra				INT				NOT NULL	AUTO_INCREMENT,
     id_produto				INT				NOT NULL,
-    valor_produto			INT				NOT NULL,
+    valor_produto			DECIMAL(7,2)	NOT NULL,
     qtd_produto				INT				NOT NULL,
     id_nota_fiscal			INT				NOT NULL,
     PRIMARY KEY (id_compra),
@@ -158,10 +158,10 @@ CREATE TABLE Caixa
 (
 	id_caixa				INT				NOT NULL	AUTO_INCREMENT,
     data_caixa				DATETIME		NOT NULL,
-    valor_caixa				DECIMAL(11,2)	NOT NULL,
-    soma_estoque			DECIMAL(11,2)	NOT NULL,
-    soma_vendas				DECIMAL(5,2)	NOT NULL,
-    soma_compra				DECIMAL(5,2)	NOT NULL,
+    valor_caixa				DECIMAL(12,2)	NOT NULL,
+    soma_estoque			DECIMAL(12,2)	NOT NULL,
+    soma_vendas				DECIMAL(8,2)	NOT NULL,
+    soma_compra				DECIMAL(8,2)	NOT NULL,
     PRIMARY KEY (id_caixa)
 );
 
