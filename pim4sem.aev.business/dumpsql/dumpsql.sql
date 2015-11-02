@@ -13,21 +13,21 @@ GRANT ALL ON PIMAEV.* TO 'dbinterator'@'localhost';
 CREATE TABLE Setor
 (
 	id_setor				INT				NOT NULL	AUTO_INCREMENT,
-    nome_setor				VARCHAR(20)		NOT NULL,
+    nome_setor				VARCHAR(20)		NOT NULL	UNIQUE,
     PRIMARY KEY (id_setor)
 );
 
 CREATE TABLE Cargo
 (
 	id_cargo				INT				NOT NULL	AUTO_INCREMENT,
-	nome_cargo				VARCHAR(20)		NOT NULL,
+	nome_cargo				VARCHAR(20)		NOT NULL	UNIQUE,
     PRIMARY KEY (id_cargo)
 );
 
 CREATE TABLE Gerente
 (
 	id_gerente				INT				NOT NULL	AUTO_INCREMENT,
-    nome					VARCHAR(50)		NOT NULL,
+    nome					VARCHAR(50)		NOT NULL	UNIQUE,
     id_setor				INT				NOT NULL,
     PRIMARY KEY (id_gerente),
     FOREIGN KEY (id_setor) REFERENCES Setor (id_setor)
@@ -53,7 +53,7 @@ CREATE TABLE Funcionario
 CREATE TABLE FuncaoUsuario
 (
 	id_funcao					INT				NOT NULL	AUTO_INCREMENT,
-    nome_funcao					VARCHAR(50)		NOT NULL,
+    nome_funcao					VARCHAR(50)		NOT NULL	UNIQUE, -- Define o cargo do usuário, mesmo que ele não seja um funcionário
     PRIMARY KEY (id_funcao)
 );
 
