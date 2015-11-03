@@ -57,16 +57,29 @@ CREATE TABLE FuncaoUsuario
     PRIMARY KEY (id_funcao)
 );
 
+CREATE TABLE StatusUsuario
+(
+	id_status					INT				NOT NULL	AUTO_INCREMENT,
+    usu_status					VARCHAR(10)		NOT NULL	UNIQUE,
+    PRIMARY KEY (id_status)
+);
+
+INSERT INTO StatusUsuario (usu_status) VALUES ('Inativo');
+INSERT INTO StatusUsuario (usu_status) VALUES ('Ativo');
+INSERT INTO StatusUsuario (usu_status) VALUES ('Desativado');
+
 CREATE TABLE Usuario
 (
 	id_usuario					INT				NOT NULL	AUTO_INCREMENT,
-    usu_login					INT				NOT NULL,
+    usu_login					INT				NOT NULL	UNIQUE,
     usu_senha					VARCHAR(128)	NOT NULL,
     usu_nome					VARCHAR(50)		NOT NULL,
     e_funcionario				BIT				NOT NULL, -- Identifica com True ou False se ele é funcionario
     id_funcao					INT				NOT NULL,
+    id_status					INT				NOT NULL,
     PRIMARY KEY (id_usuario),
-    FOREIGN KEY (id_funcao) REFERENCES FuncaoUsuario (id_funcao)
+    FOREIGN KEY (id_funcao) REFERENCES FuncaoUsuario (id_funcao),
+    FOREIGN KEY (usu_status) REFERENCES StatusUsuario (id_status)
 );
 
 CREATE TABLE Cliente
