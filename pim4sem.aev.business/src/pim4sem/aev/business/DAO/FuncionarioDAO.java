@@ -13,14 +13,13 @@ public class FuncionarioDAO {
 
 	private Connection conn;
 	
-	public FuncionarioDAO(){
-		conn = new ConnectionFactory().getConnection();
-	}
-	
 	public void adicionaFuncionario(Funcionario funcionario) throws SQLException{
 		
+		conn = new ConnectionFactory().getConnection();
 		StringBuffer sql = new StringBuffer();
 		CargoDAO cargo = new CargoDAO();
+		GerenteDAO gerente = new GerenteDAO();
+		SetorDAO setor = new SetorDAO();
 		
 		sql.append("INSERT INTO Funcionario (matricula, nome_func, sexo_func, id_cargo, id_setor, ");
 		sql.append("salario, id_gerente, cargo_gerencial, ano_nascimento, ano_contratacao) VALUES (");
@@ -32,9 +31,9 @@ public class FuncionarioDAO {
 		stmt.setString(2, funcionario.getNome());
 		stmt.setString(3, String.valueOf(funcionario.getCargo()));
 		stmt.setInt(4, cargo.retornaIdCargo(funcionario.getCargo()));
-		stmt.setInt(5, funcionario.getSetor()); // TODO: necessita da classe SetorDAO
+		stmt.setInt(5, setor.retornaIdSetor(funcionario.getSetor()));
 		stmt.setDouble(6, funcionario.getSalario());
-		stmt.setInt(7, funcionario.getGerente()); // TODO: necessita da classe GerenteDAO
+		stmt.setInt(7, gerente.retornaIdGerente(funcionario.getNome()));
 		stmt.setBoolean(8, funcionario.isCargoGerencial());
 		stmt.setDate(9, funcionario.getDataNascimento());
 		stmt.setDate(10, funcionario.getDataContratacao());
@@ -52,6 +51,8 @@ public class FuncionarioDAO {
 	}
 	
 	public Funcionario carregaFuncionario(int matriculaFunc) throws SQLException{
+
+		conn = new ConnectionFactory().getConnection();
 		Funcionario func = (Funcionario) new Object();
 		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Funcionario WHERE matricula = ?");
 		ResultSet rs = stmt.executeQuery();
@@ -59,7 +60,7 @@ public class FuncionarioDAO {
 			while(rs.next()){
 				func.setNome(rs.getString("nome_func"));
 				func.setCargo(rs.getString("id_cargo"));
-				func.setSexo(rs.getString("sexo_func"));
+				func.setSexo(rs.getString("sexo_func").charAt(0));
 				func.setCargoGerencial(rs.getBoolean("cargo_gerencial"));
 				func.setGerente(rs.getString("id_gerente"));
 				func.setSalario(rs.getDouble("salario"));
@@ -71,8 +72,6 @@ public class FuncionarioDAO {
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-			e.printStackTrace();
-			return null;
 		} finally {
 			stmt.close();
 			conn.close();
@@ -80,6 +79,7 @@ public class FuncionarioDAO {
 	}
 	
 	public void removerFuncionario(int recebeMatricula) throws SQLException{
+		conn = new ConnectionFactory().getConnection();
 		try {
 			PreparedStatement stmt = conn.prepareStatement("DELETE FROM Funcionario WHERE matricula = ?");
 			stmt.setLong(1, recebeMatricula);
@@ -91,6 +91,11 @@ public class FuncionarioDAO {
 	}
 	
 	public void alteraFuncionario(Funcionario funcionario)throws SQLException{
+
+		conn = new ConnectionFactory().getConnection();
+		CargoDAO cargo = new CargoDAO();
+		GerenteDAO gerente = new GerenteDAO();
+		SetorDAO setor = new SetorDAO();
 		String sql = "UPDATE Funcionario SET = nome_func, sexo_func, id_cargo, "
 				+ "id_setor, salario, id_gerente, cargo_gerencial, "
 				+ "ano_nascimento, ano_contratacao VALUES = ?, ?, ?, ?, ?, ?, ?, ?, ?";
@@ -101,9 +106,9 @@ public class FuncionarioDAO {
 			stmt.setString(2, funcionario.getNome());
 			stmt.setString(3, String.valueOf(funcionario.getCargo()));
 			stmt.setInt(4, cargo.retornaIdCargo(funcionario.getCargo()));
-			stmt.setInt(5, funcionario.getSetor()); // TODO: necessita da classe SetorDAO
+			stmt.setInt(5, setor.retornaIdSetor(funcionario.getSetor()));
 			stmt.setDouble(6, funcionario.getSalario());
-			stmt.setInt(7, funcionario.getGerente()); // TODO: necessita da classe GerenteDAO
+			stmt.setInt(7, gerente.retornaIdGerente(funcionario.getNome()));
 			stmt.setBoolean(8, funcionario.isCargoGerencial());
 			stmt.setDate(9, funcionario.getDataNascimento());
 			stmt.setDate(10, funcionario.getDataContratacao());
@@ -115,7 +120,5 @@ public class FuncionarioDAO {
 			throw new RuntimeException(e);
 		}
 	
-	}
-	
-	
+	}	
 }
