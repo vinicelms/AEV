@@ -79,7 +79,7 @@ CREATE TABLE Usuario
     id_status					INT				NOT NULL,
     PRIMARY KEY (id_usuario),
     FOREIGN KEY (id_funcao) REFERENCES FuncaoUsuario (id_funcao),
-    FOREIGN KEY (usu_status) REFERENCES StatusUsuario (id_status)
+    FOREIGN KEY (id_status) REFERENCES StatusUsuario (id_status)
 );
 
 CREATE TABLE Cliente
