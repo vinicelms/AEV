@@ -1,22 +1,30 @@
 package pim4sem.aev.business.DAO;
 
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TipoProdutoDAO {
 	
-	public void registraTipoProduto(String recebeTipoProduto) throws SQLException{
+	public int registraTipoProduto(String recebeTipoProduto) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
+		
+		int retornaTipoProduto = 0;
 		
 		String sql = "INSERT INTO TipoProduto (tipo_produto) VALUES (?)";
 		
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
 		try {
 			stmt.setString(1, recebeTipoProduto);
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			while(rs.next()){
+				retornaTipoProduto = rs.getInt(1);
+			}
+			rs.close();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -24,6 +32,7 @@ public class TipoProdutoDAO {
 			stmt.close();
 			conn.close();
 		}
+		return retornaTipoProduto;
 	}
 
 	public int retornaIdTipoProduto(String recebeTipoProduto) throws SQLException{
