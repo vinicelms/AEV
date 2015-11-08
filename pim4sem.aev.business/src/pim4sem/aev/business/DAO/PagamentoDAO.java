@@ -61,4 +61,30 @@ public class PagamentoDAO {
 		return tipoProduto;
 	}
 	
+	public int retornaTipoPagamento(String recebeTipoPagamento) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		int retornaId = 0;
+		
+		String sql = "SELECT id_pagamento FROM Pagamento WHERE tipo_pagamento = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setString(1, recebeTipoPagamento);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				retornaId = rs.getInt("id_pagamento");
+			}
+			rs.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+		return retornaId;
+	}
+	
 }
