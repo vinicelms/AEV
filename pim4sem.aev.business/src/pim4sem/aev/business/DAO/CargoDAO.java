@@ -1,20 +1,15 @@
 package pim4sem.aev.business.DAO;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.Connection;
-
 public class CargoDAO {
-
-	private static Connection conn;
-	
-	public CargoDAO(){
-		Connection conn = new ConnectionFactory().getConnection();
-	}
 	
 	static int retornaIdCargo(String recebeCargo) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
 		int idCargo = 0;
 		
 		String sql = "SELECT id_cargo FROM Cargo WHERE nome_cargo = ?";
@@ -41,6 +36,8 @@ public class CargoDAO {
 	}
 	
 	public void registraCargo(String recebeCargo) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
 		String sql = "INSERT INTO cargo (nome_cargo) VALUES (?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
@@ -59,7 +56,9 @@ public class CargoDAO {
 	}
 	
 	public boolean verificaCargo(String recebeCargo) throws SQLException{
-		int id_cargo = 0;
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		int retornaCargo = 0;
 		
 		String sql = "SELECT id_cargo FROM Cargo WHERE nome_cargo = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -70,8 +69,9 @@ public class CargoDAO {
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()){
-				id_cargo = rs.getInt("id_cargo");
+				retornaCargo = rs.getInt("id_cargo");
 			}
+			rs.close();
 		}
 		catch(Exception e){
 			throw new RuntimeException(e);
@@ -81,7 +81,7 @@ public class CargoDAO {
 			conn.close();
 		}
 		
-		if(id_cargo > 0){
+		if(retornaCargo > 0){
 			return true;
 		}
 		else{

@@ -16,6 +16,8 @@ public class ProdutoDAO {
 	public void registarProduto(Produto produto) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
+		TipoProdutoDAO tipoProduto = new TipoProdutoDAO();
+		
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("INSERT INTO Produto (nome_produto, marca_produto, cor_produto, descricao_produto, ");
@@ -24,21 +26,25 @@ public class ProdutoDAO {
 		
 		PreparedStatement stmt = conn.prepareStatement(sql.toString());
 		
+		int tipoProd = tipoProduto.retornaIdTipoProduto(produto.getTipoProduto());
+		
+		if(tipoProd > 0){
+			tipoProduto.registraTipoProduto(produto.getTipoProduto());
+			tipoProd = tipoProduto.retornaIdTipoProduto(produto.getTipoProduto());
+		}
+		
 		try {
-			
 			stmt.setString(1, produto.getNome());
 			stmt.setString(2, produto.getMarca());
 			stmt.setString(3, produto.getCor());
 			stmt.setString(4, produto.getDescricao());
 			stmt.setInt(5, produto.getTamanho());
-			stmt.setInt(6, retornaIdTipoProduto(produto.getTipoProduto()));
+			stmt.setInt(6, tipoProd);
 			stmt.setInt(7, produto.getQuantidadeMinima());
 			stmt.setInt(8, produto.getQuantidadeEstoque());
 			stmt.setDouble(9, produto.getValorCompra());
 			stmt.setDouble(10, produto.getValorVenda());
-			
 			stmt.execute();
-			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -46,7 +52,6 @@ public class ProdutoDAO {
 			stmt.close();
 			conn.close();
 		}
-		
 	}
 	
 	public List<Produto> retornaProduto(String recebeColuna, String recebeValor) throws SQLException{
@@ -65,23 +70,19 @@ public class ProdutoDAO {
 		sql.append("INNER JOIN tipoproduto AS tp_prod on tp_prod.id_tipo_produto = prod.id_tipo_produto");		
 		if(recebeValor != null && recebeColuna != null){
 			sql.append(" WHERE ");
-			sql.append(verificaNomeColuna(recebeColuna));
+			sql.append(defineNomeColuna(recebeColuna));
 			sql.append(" = ?");
 		}
 		
 		PreparedStatement stmt = conn.prepareStatement(sql.toString());
 		
 		try {
-			
 			if(recebeValor != null && recebeColuna != null){
 				stmt.setString(1, recebeValor);
 			}
-			
 			ResultSet rs = stmt.executeQuery();
-			
 			while(rs.next()){
 				Produto produto = new Produto();
-				
 				produto.setCodigo(rs.getInt("Codigo"));
 				produto.setNome(rs.getString("Nome"));
 				produto.setMarca(rs.getString("Marca"));
@@ -93,7 +94,6 @@ public class ProdutoDAO {
 				produto.setQuantidadeEstoque(rs.getInt("QtdEstoque"));
 				produto.setValorCompra(rs.getDouble("ValorCompra"));
 				produto.setValorVenda(rs.getDouble("ValorVenda"));
-				
 				prod.add(produto);
 			}
 			rs.close();
@@ -104,78 +104,24 @@ public class ProdutoDAO {
 			stmt.close();
 			conn.close();
 		}
-		
 		return prod;
 	}
 	
-	private String verificaNomeColuna(String recebeColuna){
-		
+	private String defineNomeColuna(String recebeColuna){
 		Map<String, String> colunas = new HashMap<String, String>();
-		
-		colunas.put("Código", "id_produto");
+		colunas.put("Codigo", "id_produto");
 		colunas.put("Nome", "nome_produto");
 		colunas.put("Marca", "marca_produto");
 		colunas.put("Cor", "cor_produto");
-		colunas.put("Descrição", "descricao_produto");
+		colunas.put("Descricao", "descricao_produto");
 		colunas.put("Tamanho", "tamanho_produto");
 		colunas.put("Tipo de Produto", "id_tipo_produto");
-		colunas.put("Quantidade Mínima", "qtd_minima");
+		colunas.put("Quantidade Minima", "qtd_minima");
 		colunas.put("Quantidade Estoque", "qtd_estoque");
 		colunas.put("Valor de Compra", "valor_compra");
 		colunas.put("Valor de Venda", "valor_venda");
 		
 		return colunas.get(recebeColuna);
-	}
-	
-	public void registraTipoProduto(String recebeTipoProduto) throws SQLException{
-		Connection conn = new ConnectionFactory().getConnection();
-		
-		String sql = "INSERT INTO TipoProduto (tipo_produto) VALUES (?)";
-		
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		
-		try {
-			stmt.setString(1, recebeTipoProduto);
-			
-			stmt.execute();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			stmt.close();
-			conn.close();
-		}
-	}
-	
-	public int retornaIdTipoProduto(String recebeTipoProduto) throws SQLException{
-		Connection conn = new ConnectionFactory().getConnection();
-		
-		int retornaTipoProduto = 0;
-		
-		String sql = "SELECT id_tipo_produto FROM TipoProduto WHERE tipo_produto = ?";
-		
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		
-		try {
-			
-			stmt.setString(1, recebeTipoProduto);
-			
-			ResultSet rs = stmt.executeQuery();
-			
-			while(rs.next()){
-				retornaTipoProduto = rs.getInt("id_tipo_produto");
-			}
-			rs.close();
-			
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			stmt.close();
-			conn.close();
-		}
-		
-		return retornaTipoProduto;
 	}
 	
 }

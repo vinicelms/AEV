@@ -15,11 +15,8 @@ public class SetorDAO {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		try {
-			
 			stmt.setString(1, recebeSetor);
-			
 			stmt.execute();
-			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -39,22 +36,16 @@ public class SetorDAO {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		try {
-			
 			stmt.setString(1, recebeSetor);
-			
 			ResultSet rs = stmt.executeQuery();
-			
 			while(rs.next()){
 				retornaId = rs.getInt("id_setor");
 			}
 			rs.close();
-			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
-		return retornaId;
-				
+		return retornaId;		
 	}
 	
 }
