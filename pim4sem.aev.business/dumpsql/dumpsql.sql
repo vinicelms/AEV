@@ -122,7 +122,7 @@ CREATE TABLE Produto
 CREATE TABLE Pagamento
 (
 	id_pagamento			INT				NOT NULL	AUTO_INCREMENT,
-    tipo_pagamento			INT				NOT NULL, -- Valores como: Cartão Débito, Cartão Crédito e Dinheiro
+    tipo_pagamento			VARCHAR(30)		NOT NULL	UNIQUE, -- Valores como: Cartão Débito, Cartão Crédito e Dinheiro
     PRIMARY KEY (id_pagamento)
 );
 
