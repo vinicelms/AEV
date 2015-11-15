@@ -24,15 +24,6 @@ CREATE TABLE Cargo
     PRIMARY KEY (id_cargo)
 );
 
-CREATE TABLE Gerente
-(
-	id_gerente				INT				NOT NULL	AUTO_INCREMENT,
-    nome					VARCHAR(50)		NOT NULL	UNIQUE,
-    id_setor				INT				NOT NULL,
-    PRIMARY KEY (id_gerente),
-    FOREIGN KEY (id_setor) REFERENCES Setor (id_setor)
-);
-
 CREATE TABLE Funcionario
 (
 	matricula				INT				NOT NULL,
@@ -41,7 +32,6 @@ CREATE TABLE Funcionario
     id_cargo				INT				NOT NULL,
     id_setor				INT				NOT NULL,
     salario					DECIMAL(7,2)	NOT NULL, -- valor máximo: 99.999,99
-    id_gerente				INT				NOT NULL,
     cargo_gerencial			BIT				NOT NULL,
     ano_nascimento			DATE			NOT NULL,
     ano_contratacao			DATETIME		NOT NULL,
@@ -50,10 +40,22 @@ CREATE TABLE Funcionario
     FOREIGN KEY (id_cargo) REFERENCES Cargo (id_cargo)
 );
 
+CREATE TABLE Gerente
+(
+	id_gerente				INT				NOT NULL	AUTO_INCREMENT,
+    matricula_func			INT				NOT NULL	UNIQUE,
+    id_setor				INT				NOT NULL,
+    ativo					BIT				NOT NULL,
+    PRIMARY KEY (id_gerente),
+    FOREIGN KEY (id_setor) REFERENCES Setor (id_setor),
+    FOREIGN KEY (matricula_func) REFERENCES Funcionario (matricula)
+);
+
 CREATE TABLE FuncaoUsuario
 (
 	id_funcao					INT				NOT NULL	AUTO_INCREMENT,
     nome_funcao					VARCHAR(50)		NOT NULL	UNIQUE, -- Define o cargo do usuário, mesmo que ele não seja um funcionário
+    ativo						BIT				NOT NULL,
     PRIMARY KEY (id_funcao)
 );
 
