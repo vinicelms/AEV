@@ -87,4 +87,30 @@ public class PagamentoDAO {
 		return retornaId;
 	}
 	
+	public void alteraTipoPagamento(String recebeTipoPagamento) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		int idPagamento = 0;
+		idPagamento = retornaTipoPagamento(recebeTipoPagamento);
+		if(idPagamento == 0){
+			throw new IllegalArgumentException("Este Tipo de Pagamento não existe");
+		}
+		
+		String sql = "UPDATE Pagamento SET tipo_pagamento = ? WHERE id_pagamento = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setString(1, recebeTipoPagamento);
+			stmt.setInt(2, idPagamento);
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+	}
+	
 }

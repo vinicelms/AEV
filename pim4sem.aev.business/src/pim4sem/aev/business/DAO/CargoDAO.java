@@ -6,20 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CargoDAO {
-	
 	static int retornaIdCargo(String recebeCargo) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
 		int idCargo = 0;
 		
 		String sql = "SELECT id_cargo FROM Cargo WHERE nome_cargo = ?";
+		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		try{			
 			stmt.setString(1, recebeCargo);
-			
 			ResultSet rs = stmt.executeQuery();
-			
 			while(rs.next()){
 				idCargo = rs.getInt("id_cargo");
 			}
@@ -31,7 +29,6 @@ public class CargoDAO {
 			stmt.close();
 			conn.close();
 		}
-		
 		return idCargo;
 	}
 	
@@ -39,11 +36,11 @@ public class CargoDAO {
 		Connection conn = new ConnectionFactory().getConnection();
 		
 		String sql = "INSERT INTO cargo (nome_cargo) VALUES (?)";
+		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		try{
-			stmt.setString(1, recebeCargo);
-			
+			stmt.setString(1, recebeCargo);	
 			stmt.execute();
 		}
 		catch(Exception e){
@@ -61,13 +58,12 @@ public class CargoDAO {
 		int retornaCargo = 0;
 		
 		String sql = "SELECT id_cargo FROM Cargo WHERE nome_cargo = ?";
+		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		try{
 			stmt.setString(1, recebeCargo);
-			
 			ResultSet rs = stmt.executeQuery();
-			
 			while(rs.next()){
 				retornaCargo = rs.getInt("id_cargo");
 			}
@@ -88,5 +84,4 @@ public class CargoDAO {
 			return false;
 		}
 	}
-	
 }

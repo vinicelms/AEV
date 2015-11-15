@@ -53,4 +53,23 @@ public class FuncaoUsuarioDAO {
 		return retornaId;
 	}
 	
+	public void desativaFuncaoUsuario(String recebeFuncao) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		String sql = "UPDATE FuncaoUsuario SET ativo = false WHERE nome_funcao = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setString(1, recebeFuncao);
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+	}
+	
 }
