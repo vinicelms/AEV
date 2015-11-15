@@ -117,6 +117,14 @@ CREATE TABLE Produto
     FOREIGN KEY (id_tipo_produto) REFERENCES TipoProduto (id_tipo_produto)
 );
 
+CREATE TABLE Armazenagem
+(
+	produto_prateleira		INT				NOT NULL,
+    prateleiras				INT				NOT NULL,
+    estantes				INT				NOT NULL,
+    ativo					BIT				NOT NULL
+);
+
 -- Compra e Venda de produtos
 
 CREATE TABLE Pagamento
