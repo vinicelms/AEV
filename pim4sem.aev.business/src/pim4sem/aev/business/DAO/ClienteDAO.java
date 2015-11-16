@@ -9,10 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import pim4sem.aev.business.cliente.Cliente;
 
 public class ClienteDAO {
-
 	public void cadastraCliente(Cliente cliente) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
@@ -66,7 +67,6 @@ public class ClienteDAO {
 					stmt.setString(1, recebeValor);
 				}
 			}
-			
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
 				Cliente cli = new Cliente();
@@ -75,9 +75,6 @@ public class ClienteDAO {
 				cli.setCpf(rs.getLong("cpf_cliente"));
 				cli.setSexo(rs.getString("sexo_cliente").charAt(0));
 				cliente.add(cli);
-			}
-			if(rs.getFetchSize() < 0){
-				System.out.println("Tá maior!");
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -88,6 +85,30 @@ public class ClienteDAO {
 			conn.close();
 		}
 		return cliente;
+	}
+	
+	public void alteraCliente(Cliente cliente) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE Cliente SET nome_cliente = ?, cpf_cliente = ?, sexo_cliente = ? ");
+		sql.append("WHERE id_cliente = ?");
+		
+		PreparedStatement stmt = conn.prepareStatement(sql.toString());
+		
+		try {
+			stmt.setString(1, cliente.getNome());
+			stmt.setLong(2, cliente.getCpf());
+			stmt.setString(3, cliente.getSexo()+"");
+			stmt.setInt(4, cliente.getCodigo());
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
 	}
 	
 	private String defineColuna(String recebeColuna){

@@ -107,6 +107,55 @@ public class ProdutoDAO {
 		return prod;
 	}
 	
+	public void alteraProduto(Produto produto) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		TipoProdutoDAO tp = new TipoProdutoDAO();
+		int tipoProduto = 0;
+		tipoProduto = tp.retornaIdTipoProduto(produto.getTipoProduto());
+		if(tipoProduto == 0){
+			throw new IllegalArgumentException("O Tipo de Produto " + produto.getTipoProduto() 
+				+ " não existe!");
+		}
+		
+		int idProduto = 0;
+		List<Produto> listaProduto = new ArrayList<>();
+		listaProduto = retornaProduto("Codigo", String.valueOf(produto.getCodigo()));
+		if(listaProduto.size() == 0){
+			throw new IllegalArgumentException("O Código de Produto " + produto.getCodigo()
+				+ " não existe!");
+		} else {
+			idProduto = produto.getCodigo();
+		}
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE Produto SET nome_produto = ?, marca_produto = ?, cor_produto = ?, ");
+		sql.append("descricao_produto = ?, tamanho_produto = ?, id_tipo_produto = ?, qtd_minima = ?, ");
+		sql.append("qtd_estoque = ?, valor_compra = ?, valor_venda = ? WHERE id_produto = ?");
+		
+		PreparedStatement stmt = conn.prepareStatement(sql.toString());
+		
+		try {
+			stmt.setString(1, produto.getNome());
+			stmt.setString(2, produto.getMarca());
+			stmt.setString(3, produto.getCor());
+			stmt.setString(4, produto.getDescricao());
+			stmt.setInt(5, produto.getTamanho());
+			stmt.setInt(6, tipoProduto);
+			stmt.setInt(7, produto.getQuantidadeMinima());
+			stmt.setInt(8, produto.getQuantidadeEstoque());
+			stmt.setDouble(9, produto.getValorCompra());
+			stmt.setDouble(10, produto.getValorVenda());
+			stmt.setInt(11, idProduto);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+	}
+	
 	private String defineNomeColuna(String recebeColuna){
 		Map<String, String> colunas = new HashMap<String, String>();
 		colunas.put("Codigo", "id_produto");
