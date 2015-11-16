@@ -6,6 +6,7 @@ import java.util.List;
 public class Estoque {
 	
 	private List produtoEstoque = new ArrayList();
+	private int nivelBaixoProduto;
 	
 	//Gets do atributos
 	
@@ -14,7 +15,8 @@ public class Estoque {
 	}
 
 	//Métodos
-	public void alertaProdutosBaixoNivel(int codigoProduto){
+	public void alertaProdutosBaixoNivel(int codigoProduto, int recebeNivelBaixo){
+		
 		
 	}
 	

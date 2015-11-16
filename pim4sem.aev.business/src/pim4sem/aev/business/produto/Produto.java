@@ -1,7 +1,10 @@
 package pim4sem.aev.business.produto;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import pim4sem.aev.business.DAO.ProdutoDAO;
 
 public class Produto {
 
@@ -18,60 +21,92 @@ public class Produto {
 	private int quantidadeMinima;
 	private char posicaoEstoque;
 	private int posicaoPrateleira;
+	private ProdutoDAO ptd = new ProdutoDAO();
+	private List<Produto> produtoLista = new ArrayList<>();
+	private Produto pt = new Produto();
 	
 	public void registraProduto(String recebeNome, String recebeMarca, String recebeCor, double recebeValorCompra,
-			double recebeValorVenda, String recebeDescricao, int recebeQuantidade){
-		setNome(recebeNome);
-		setMarca(recebeMarca);
-		setCor(recebeCor);
-		setValorCompra(recebeValorCompra);
-		setValorVenda(recebeValorVenda);
-		setDescricao(recebeDescricao);
-		setQuantidadeEstoque(recebeQuantidade);
+			double recebeValorVenda, String recebeDescricao) throws SQLException{
+					
+			pt.setNome(recebeNome);
+			pt.setMarca(recebeMarca);
+			pt.setCor(recebeCor);
+			pt.setValorCompra(recebeValorCompra);
+			pt.setValorVenda(recebeValorVenda);
+			pt.setDescricao(recebeDescricao);
 		
-		/*recebeNome = nome;
-		recebeMarca = marca;
-		recebeCor = cor;
-		recebeValorCompra = valorCompra;
-		recebeValorVenda = valorVenda;
-		recebeDescricao = descricao;
-		recebeQuantidade = quantidadeEstoque;*/
-	}
-	
+			ptd.registarProduto(pt);
+	}	
 
-	public List pesquisaProduto(int recebeCodigo){
-		return new ArrayList();
+	public List<Produto> pesquisaProduto(int recebeCodigo) throws SQLException{
+		
+		produtoLista = ptd.retornaProduto("Codigo", String.valueOf(recebeCodigo));
+		
+		return produtoLista;
+			
 	}
-	
 
-	public List pesquisaProduto(String recebeNome){
-		return new ArrayList();
+	public List<Produto> pesquisaProduto(String recebeNome) throws SQLException{
+				
+		produtoLista = ptd.retornaProduto("Nome",recebeNome);
 		
+		return produtoLista;
+	
 	}
 	
-	public void alteraProduto(int recebeCodigo, String recebeNome, 
-							double recebeValor, String recebeDescricao){
-		
+	public void alteraProduto(int recebeCodigo, String recebeNome, double recebeValorCompra, double recebeValorVenda,
+			String recebeDescricao) throws SQLException{
+
+		pt.setNome(recebeNome);
+		pt.setValorCompra(recebeValorCompra);
+		pt.setValorVenda(recebeValorVenda);
+		pt.setDescricao(recebeDescricao);
+	
+		ptd.registarProduto(pt);
+
 	}
 	
 	public void alteraProduto(int recebeCodigo, String recebeNome){
-		
+
+		pt.setCodigo(recebeCodigo);
+		pt.setNome(recebeNome);
+
+		ptd.alterarProduto(pt);
+
 	}
 	
 	public void alteraProduto(int recebeCodigo, double recebeValor){
-		
+
+		pt.setCodigo(recebeCodigo);
+		pt.setNome(recebeValor);
+
+		ptd.alterarProduto(pt);
+
 	}
 	
-	//ATENÇÃO!! IMPOSSÍVEL FAZER SOBRECARGA ONDE OS TIPOS DE 2 MÉTODOS SAO IGUAIS
+	public void removeProduto(int recebeCodigo){
+
+		pt.setCodigo(recebeCodigo);
+
+		ptd.removeProduto(pt);
+
+	}
+	
+		
+	//SENHORES ACHEI OS METODOS ABAIXO DESNECESSARIOS, É VALIDO NOS REFLETIRMOS SOBRE!!
+	
 	/*
+	
+	//ATENÇÃO!! IMPOSSÍVEL FAZER SOBRECARGA ONDE OS TIPOS DE 2 MÉTODOS SAO IGUAIS
+	
 	public void alteraProduto(int recebeCodigo, String recebeDescricao){
 		
 	}
-	*/
+	
 
 	public void alteraProduto(int recebeCodigo, int recebeQuantidadeMinima){
 		
-	}
+	}*/
 	
 	//Gets e Sets do atributos
 	
@@ -81,6 +116,9 @@ public class Produto {
 
 
 	public void setCodigo(int codigo) {
+		if(codigo == 0){
+			throw new IllegalArgumentException("O codigo precisa ser gerado!");
+		}
 		this.codigo = codigo;
 	}
 
@@ -91,6 +129,9 @@ public class Produto {
 
 
 	public void setNome(String nome) {
+		if(nome == null){
+			throw new IllegalArgumentException("O nome precisa ser definido!");
+		}
 		this.nome = nome;
 	}
 
@@ -101,6 +142,9 @@ public class Produto {
 
 
 	public void setMarca(String marca) {
+		if(marca == null){
+			throw new IllegalArgumentException("A marca precisa ser definida!");
+		}
 		this.marca = marca;
 	}
 
@@ -111,6 +155,9 @@ public class Produto {
 
 
 	public void setCor(String cor) {
+		if(cor == null){
+			throw new IllegalArgumentException("A cor precisa ser definida!");
+		}
 		this.cor = cor;
 	}
 
@@ -121,6 +168,13 @@ public class Produto {
 
 
 	public void setValorCompra(double valorCompra) {
+		if(valorCompra < 10 || valorCompra >= 999.99){
+			if(valorCompra < 10){
+				throw new IllegalArgumentException("O valor de compra deve ser maior do que 10!");
+			} else{
+				throw new IllegalArgumentException("O valor de venda deve ser menor do que 999.99");
+			}
+		}
 		this.valorCompra = valorCompra;
 	}
 
@@ -131,6 +185,13 @@ public class Produto {
 
 
 	public void setValorVenda(double valorVenda) {
+		if(valorVenda > 999.99 || valorVenda < 10){
+			if(valorVenda > 999.99){
+				throw new IllegalArgumentException("O valor de venda deve ser menor do que 999.99");
+			} else{
+				throw new IllegalArgumentException("O valor de venda precisa ser maior do que 10");
+			}
+		}
 		this.valorVenda = valorVenda;
 	}
 
@@ -141,6 +202,9 @@ public class Produto {
 
 
 	public void setDescricao(String descricao) {
+		if(descricao == null){
+			throw new IllegalArgumentException("A descrição precisa ser definida!");
+		}
 		this.descricao = descricao;
 	}
 
@@ -151,6 +215,13 @@ public class Produto {
 
 
 	public void setTamanho(int tamanho) {
+		if(tamanho < 3 || tamanho > 60){
+			if(tamanho < 3){
+				throw new IllegalArgumentException("O tamanho não pode ser menor que 3");
+			} else{
+				throw new IllegalArgumentException("O tamanho não pode ser maior que 60");
+			}
+		}
 		this.tamanho = tamanho;
 	}
 
@@ -161,6 +232,9 @@ public class Produto {
 
 
 	public void setTipoProduto(String tipoProduto) {
+		if(tipoProduto == null){
+			throw new IllegalArgumentException("O tipo de produto precisa ser definido");
+		}
 		this.tipoProduto = tipoProduto;
 	}
 
