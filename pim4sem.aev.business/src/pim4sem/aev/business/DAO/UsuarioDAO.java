@@ -23,11 +23,11 @@ public class UsuarioDAO {
 		PreparedStatement stmt = conn.prepareStatement(sql.toString());
 
 		try {
-			stmt.setInt(1, usuario.getLogin());
+			stmt.setString(1, usuario.getLogin());
 			stmt.setString(2, usuario.getSenha());
 			stmt.setString(3, usuario.getNome());
 			stmt.setBoolean(4, usuario.isFuncionario());
-			stmt.setInt(5, func.retornaIdFuncaoUsuario(usuario.getFuncao()));
+			stmt.setInt(5, func.retornaFuncaoUsuario(usuario.getFuncao()));
 			stmt.setInt(6, 1);
 			stmt.execute();
 		} catch (Exception e) {
@@ -37,6 +37,32 @@ public class UsuarioDAO {
 			stmt.close();
 			conn.close();
 		}
+	}
+	
+	public int retornaUsuario(String recebeUsuario) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		int retornaUsuario = 0;
+		
+		String sql = "SELECT id_usuario FROM Usuario WHERE usu_login = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setString(1, recebeUsuario);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				retornaUsuario = rs.getInt("id_usuario");
+			}
+			rs.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+		return retornaUsuario;
 	}
 
 	public List<Usuario> retornaUsuario(String recebeColuna, String recebeNome) throws SQLException{
@@ -58,7 +84,7 @@ public class UsuarioDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
 				Usuario usu = new Usuario();
-				usu.setLogin(rs.getInt("Login"));
+				usu.setLogin(rs.getString("Login"));
 				usu.setNome(rs.getString("Nome"));
 				usu.setFuncionario(rs.getBoolean("Funcionario"));
 				usu.setFuncao(rs.getString("Funcao"));
@@ -119,6 +145,36 @@ public class UsuarioDAO {
 			conn.close();
 		}
 		return verificaLogin;
+	}
+	
+	public void alteraUsuario(Usuario usu) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		StatusUsuarioDAO sts = new StatusUsuarioDAO();
+		FuncaoUsuarioDAO func = new FuncaoUsuarioDAO();
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE Usuario SET usu_login = ?, usu_senha = ?, usu_nome = ?, e_funcionario = ?, ");
+		sql.append("id_funcao = ?, id_status = ? WHERE id_usuario = ?");
+		
+		PreparedStatement stmt = conn.prepareStatement(sql.toString());
+		
+		try {
+			stmt.setString(1, usu.getLogin());
+			stmt.setString(2, usu.getSenha());
+			stmt.setString(3, usu.getNome());
+			stmt.setBoolean(4, usu.isFuncionario());
+			stmt.setInt(5, func.retornaFuncaoUsuario(usu.getFuncao()));
+			stmt.setInt(6, sts.retornaStatus(usu.getStatus()));
+			stmt.setInt(7, retornaUsuario(usu.getLogin()));
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
 	}
 
 }

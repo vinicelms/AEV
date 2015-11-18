@@ -73,7 +73,7 @@ INSERT INTO StatusUsuario (usu_status) VALUES ('Desativado');
 CREATE TABLE Usuario
 (
 	id_usuario					INT				NOT NULL	AUTO_INCREMENT,
-    usu_login					INT				NOT NULL	UNIQUE,
+    usu_login					VARCHAR(50)     NOT NULL	UNIQUE,
     usu_senha					VARCHAR(128)	NOT NULL,
     usu_nome					VARCHAR(50)		NOT NULL,
     e_funcionario				BIT				NOT NULL, -- Identifica com True ou False se ele é funcionario

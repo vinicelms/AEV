@@ -66,4 +66,28 @@ public class TipoProdutoDAO {
 		return retornaTipoProduto;
 	}
 	
+	public void alteraTipoProduto(String recebeTipoProduto) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		int tipoProduto = retornaIdTipoProduto(recebeTipoProduto);
+		if(tipoProduto < 1){
+			throw new IllegalArgumentException("O Tipo de Produto " + recebeTipoProduto + " não existe!");
+		}
+		
+		String sql = "UPDATE TipoProduto SET tipo_produto = ? WHERE id_tipo_produto = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setString(1, recebeTipoProduto);
+			stmt.setInt(2, tipoProduto);
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+	}
 }

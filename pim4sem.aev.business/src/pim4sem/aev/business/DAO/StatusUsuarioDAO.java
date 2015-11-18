@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
-public class StatusUsuario {
+public class StatusUsuarioDAO {
 	public int retornaStatus(String recebeStatus) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		

@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.lang.model.type.NullType;
+
 import pim4sem.aev.business.controlefinanceiro.NotaFiscal;
 import pim4sem.aev.business.funcionarios.Funcionario;
 
@@ -121,6 +123,87 @@ public class NotaFiscalDAO {
 			conn.close();
 		}
 		return nf;
+	}
+	
+	public void pagaNotaFiscal(int recebeIdNotaFiscal) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		String sql = "UPDATE NotaFiscal SET nota_paga = true WHERE id_nota_fiscal = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setInt(1, recebeIdNotaFiscal);
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+	}
+	
+	public void alteraNotaFiscal(NotaFiscal nf) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		if(verificaNotaFiscal(nf.getCodigoNotaFiscal())){
+			throw new IllegalArgumentException("O Código da Nota Fiscal " + nf.getCodigoNotaFiscal() 
+				+ " não existe!");
+		}
+		
+		PagamentoDAO pag = new PagamentoDAO();
+		int idPagamento =  pag.retornaTipoPagamento(nf.getTipoPagamento());
+		if(idPagamento < 1){
+			throw new IllegalArgumentException("O Tipo de Pagamento " + nf.getTipoPagamento() 
+				+ " não existe");
+		}
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE NotaFiscal SET data_vencimento = ?, data_pagamento = ?, id_pagamento = ?, ");
+		sql.append("nota_paga = ? WHERE id_nota_fiscal = ?");
+		
+		PreparedStatement stmt = conn.prepareStatement(sql.toString());
+		
+		try {
+			stmt.setDate(1, (Date) nf.getDataVencimento());
+			stmt.setDate(2, (Date) nf.getDataPagamento());
+			stmt.setInt(3, idPagamento);
+			stmt.setBoolean(4, nf.isNotaPaga());
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+	}
+	
+	public boolean verificaNotaFiscal(int recebeIdNotaFiscal) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		boolean retornaVerificacao = false;
+		
+		String sql = "SELECT id_nota_fiscal FROM NotaFiscal WHERE id_nota_fiscal = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setInt(1, recebeIdNotaFiscal);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				retornaVerificacao = true;
+			}
+		} catch (Exception e) {
+			retornaVerificacao = false;
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+		return retornaVerificacao;
 	}
 	
 	private String defineColuna(String recebeColuna){

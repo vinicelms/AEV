@@ -2,17 +2,17 @@ package pim4sem.aev.business.funcionarios;
 
 public class Usuario {
 	
-	private int login;
+	private String login;
 	private String senha;
 	private String nome;
 	private boolean funcionario;
 	private String funcao;
 	private String status;	
 	
-	public int getLogin() {
+	public String getLogin() {
 		return login;
 	}
-	public void setLogin(int login) {
+	public void setLogin(String login) {
 		this.login = login;
 	}
 	public String getSenha() {
