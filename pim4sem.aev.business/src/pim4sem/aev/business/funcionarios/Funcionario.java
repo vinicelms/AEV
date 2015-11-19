@@ -1,6 +1,6 @@
 package pim4sem.aev.business.funcionarios;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 
 import pim4sem.aev.business.DAO.FuncionarioDAO;
@@ -13,7 +13,6 @@ public abstract class Funcionario {
 	protected String cargo;
 	protected String setor;
 	protected double salario;
-	protected String gerente;
 	protected boolean cargoGerencial;
 	protected Date dataNascimento;
 	protected Date dataContratacao;
@@ -26,7 +25,6 @@ public abstract class Funcionario {
 		nome = recebeNome;
 		cargo = recebeCargo;
 		salario = recebeSalario;
-		gerente = recebeGerente;
 		cargoGerencial = recebeCargoGerencial;
 	}
 	
@@ -76,10 +74,6 @@ public abstract class Funcionario {
 		return salario;
 	}
 
-	public String getGerente() {
-		return gerente;
-	}
-
 	public boolean isCargoGerencial() {
 		return cargoGerencial;
 	}
@@ -114,10 +108,6 @@ public abstract class Funcionario {
 
 	public void setSalario(double salario) {
 		this.salario = salario;
-	}
-
-	public void setGerente(String gerente) {
-		this.gerente = gerente;
 	}
 
 	public void setCargoGerencial(boolean cargoGerencial) {
