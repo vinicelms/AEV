@@ -1,7 +1,32 @@
-.corpo
+.corpo_index
 {
     background-color: #F7F7F9;
     background-image: url(../images/Background_Teste.png);
+}
+
+.corpo_geral
+{
+    background-color: #F7F7F9;
+    background-image: url(../images/Background_Geral.png);
+}
+
+.circulo_sapato
+{
+    border-radius: 50%;
+    margin-top: 2px;
+    margin-left: 5px;
+    width: 65px;
+    height: 65px;
+    background-color: #F7F7F9;
+    position: absolute;
+    box-shadow: 00px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.sapato_circulo
+{
+    width: 3%;
+    height: 6%;
+    position: absolute;
 }
 
 #LoginBox
@@ -17,14 +42,66 @@
 #TopoBox
 {
     margin: auto;
-    background-color: rgba(1, 126, 193, 0.9);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: #EF3D31;
 }
 
 #TextoTopoBox
 {
-    font-size: 60px;
-    font-family: 'Dancing Script', cursive;
-    color: #FDB225;
-    text-shadow: 2px 2px 8px #000000;
-    text-align: center;
+    font-size: 38px;
+    margin-left: 90px;
+    font-family: "Oswald", cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@font-face
+{
+    font-family: "Oswald";
+    src: url(../fonts/Oswald-Regular.ttf);
+}
+
+.full_body
+{
+    width: 95%;
+    border-radius: 10px;
+    border-top: 5px solid #EF3D31;
+    background-color: rgba(247, 247, 249, 0.95);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 40px;
+    margin-left: 2.5%;
+}
+
+.full_body_text
+{
+    width: 95%;
+    margin-left: 2.5%;
+    text-align: justify;
+}
+
+.full_body_text h1
+{
+    font-family: "Oswald", cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#rodape
+{
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: #EF3D31;
+    font-family: "Oswald", cursive;
+    font-size: 15px;
+    margin-top: 30px;
+}
+
+#rodape_texto
+{
+    font-size: 15px;
+    margin-left: 40px;
+}
+
+#rodape_texto_bold
+{
+    font-weight: bold;
+    font-size: 18px;
 }
