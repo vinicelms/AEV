@@ -183,7 +183,7 @@ CREATE TABLE Caixa
     data_caixa				DATETIME		NOT NULL,
     valor_caixa				DECIMAL(12,2)	NOT NULL,
     soma_estoque			DECIMAL(12,2)	NOT NULL,
-    soma_vendas				DECIMAL(8,2)	NOT NULL,
+    soma_vendas				DECIMAL(8,2)	NOT NULL,   
     soma_compra				DECIMAL(8,2)	NOT NULL,
     PRIMARY KEY (id_caixa)
 );
@@ -205,9 +205,9 @@ CREATE TABLE BalancoFinanceiro
 CREATE TABLE log
 (
 	id_log					INT				NOT NULL,
-    matricula_func			INT				NOT NULL,
+    id_usuario  			INT				NOT NULL,
     descricao_log			INT				NOT NULL,
     data_log				DATETIME		NOT NULL,
     PRIMARY KEY (id_log),
-    FOREIGN KEY (matricula_func) REFERENCES Funcionario (matricula)
+    FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario)
 );
