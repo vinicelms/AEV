@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-
 import pim4sem.aev.business.funcionarios.Funcionario;
 
 public class GerenteDAO {
@@ -21,7 +19,7 @@ public class GerenteDAO {
 		
 		try {
 			stmt.setInt(1, funcionario.getMatricula());
-			stmt.setInt(2, setor.retornaIdSetor(recebeSetor));
+			stmt.setInt(2, setor.retornaSetor(recebeSetor));
 			stmt.execute();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -32,33 +30,33 @@ public class GerenteDAO {
 		}
 	}
 	
-	public int retornaIdGerente(int recebeMatriculaFuncionario) throws SQLException{
+	public int retornaGerente(int recebeFuncionario) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		int retornaId = 0;
+		int retornaFuncionario = 0;
 		
 		String sql = "SELECT id_gerente FROM Gerente WHERE matricula = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		try {
-			stmt.setInt(1, recebeMatriculaFuncionario);
+			stmt.setInt(1, recebeFuncionario);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.getFetchSize() > 0){
-				retornaId = rs.getInt("id_gerente");
+				retornaFuncionario = rs.getInt("id_gerente");
 			} else{
-				retornaId = 0;
+				retornaFuncionario = 0;
 			}
 			rs.close();
 		} catch (Exception e) {
-			retornaId = 0;
+			retornaFuncionario = 0;
 			throw new RuntimeException(e);
 		}
 		finally {
 			stmt.close();
 			conn.close();
 		}
-		return retornaId;
+		return retornaFuncionario;
 	}
 	
 	public void desativaGerente(int recebeMatriculaFuncionario) throws SQLException{

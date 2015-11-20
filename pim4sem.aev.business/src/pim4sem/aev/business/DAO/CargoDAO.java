@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CargoDAO {
-	static int retornaIdCargo(String recebeCargo) throws SQLException{
+	public int retornaCargo(String recebeCargo) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
 		int idCargo = 0;
@@ -82,6 +82,30 @@ public class CargoDAO {
 		}
 		else{
 			return false;
+		}
+	}
+	
+	public void alteraCargo(String recebeCargo, int recebeIdCargo) throws SQLException{
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		if(recebeCargo == null){
+			throw new IllegalArgumentException("O Cargo não pode ser vazio!");
+		}
+		
+		String sql = "UPDATE Cargo SET nome_cargo = ? WHERE id_cargo = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			stmt.setString(1, recebeCargo);
+			stmt.setInt(2, recebeIdCargo);
+			stmt.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
 		}
 	}
 }

@@ -35,7 +35,7 @@ public class TipoProdutoDAO {
 		return retornaTipoProduto;
 	}
 
-	public int retornaIdTipoProduto(String recebeTipoProduto) throws SQLException{
+	public int retornaTipoProduto(String recebeTipoProduto) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
 		int retornaTipoProduto = 0;
@@ -69,7 +69,7 @@ public class TipoProdutoDAO {
 	public void alteraTipoProduto(String recebeTipoProduto) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		int tipoProduto = retornaIdTipoProduto(recebeTipoProduto);
+		int tipoProduto = retornaTipoProduto(recebeTipoProduto);
 		if(tipoProduto < 1){
 			throw new IllegalArgumentException("O Tipo de Produto " + recebeTipoProduto + " não existe!");
 		}

@@ -26,11 +26,11 @@ public class ProdutoDAO {
 		
 		PreparedStatement stmt = conn.prepareStatement(sql.toString());
 		
-		int tipoProd = tipoProduto.retornaIdTipoProduto(produto.getTipoProduto());
+		int tipoProd = tipoProduto.retornaTipoProduto(produto.getTipoProduto());
 		
 		if(tipoProd > 0){
 			tipoProduto.registraTipoProduto(produto.getTipoProduto());
-			tipoProd = tipoProduto.retornaIdTipoProduto(produto.getTipoProduto());
+			tipoProd = tipoProduto.retornaTipoProduto(produto.getTipoProduto());
 		}
 		
 		try {
@@ -112,7 +112,7 @@ public class ProdutoDAO {
 		
 		TipoProdutoDAO tp = new TipoProdutoDAO();
 		int tipoProduto = 0;
-		tipoProduto = tp.retornaIdTipoProduto(produto.getTipoProduto());
+		tipoProduto = tp.retornaTipoProduto(produto.getTipoProduto());
 		if(tipoProduto == 0){
 			throw new IllegalArgumentException("O Tipo de Produto " + produto.getTipoProduto() 
 				+ " não existe!");
