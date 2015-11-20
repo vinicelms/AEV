@@ -7,7 +7,6 @@
         <link href="css/Semantic-UI/semantic.css" rel="stylesheet"/>
         <link href="css/Foundation-5.5.3/css/foundation.css" rel="stylesheet"/>
         <link href="images/sapato_vetorial.ico" rel="icon"/>
-        <link href='https://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
     </head>
     <body class="corpo_geral">
         <span class="row">
@@ -18,6 +17,12 @@
                      style="margin-top: 15px; margin-left: 15px">
                 <div id="TextoTopoBox">
                     PIM AEV
+                    <span id="links">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                        <a href="#">Link 4</a>
+                    </span>
                 </div>
             </div>
             

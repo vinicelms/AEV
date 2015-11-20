@@ -54,6 +54,19 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+#links
+{
+    margin-left: 100px;
+    margin-top: 50px;
+    font-size: 18px;
+}
+
+#links a
+{
+    margin-right: 40px;
+    color: #FDB225;
+}
+
 @font-face
 {
     font-family: "Oswald";
