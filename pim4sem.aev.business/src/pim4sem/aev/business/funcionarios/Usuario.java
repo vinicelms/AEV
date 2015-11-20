@@ -2,6 +2,7 @@ package pim4sem.aev.business.funcionarios;
 
 public class Usuario {
 	
+	private int codigo;
 	private String login;
 	private String senha;
 	private String nome;
@@ -45,5 +46,10 @@ public class Usuario {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}	
 }

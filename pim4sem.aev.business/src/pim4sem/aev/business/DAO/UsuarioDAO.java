@@ -71,8 +71,9 @@ public class UsuarioDAO {
 		List<Usuario> listaUsuario = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT usu.usu_login AS Login, usu.usu_nome AS Nome, usu.e_funcionario AS Funcionario, ");
-		sql.append("fun_usu.nome_funcao AS Funcao, sts_usu.usu_status AS Status FROM Usuario AS usu ");
+		sql.append("SELECT usu.id_usuario AS Id, usu.usu_login AS Login, usu.usu_nome AS Nome, ");
+		sql.append("usu.e_funcionario AS Funcionario, fun_usu.nome_funcao AS Funcao, ");
+		sql.append("sts_usu.usu_status AS Status FROM Usuario AS usu ");
 		sql.append("INNER JOIN FuncaoUsuario AS fun_usu ON usu.id_funcao = fun_usu.id_funcao ");
 		sql.append("INNER JOIN StatusUsuario AS sts_usu ON usu.id_status = sts_usu.id_status ");
 		sql.append("WHERE usu.usu_nome LIKE ?");
@@ -84,6 +85,7 @@ public class UsuarioDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
 				Usuario usu = new Usuario();
+				usu.setCodigo(rs.getInt("Id"));
 				usu.setLogin(rs.getString("Login"));
 				usu.setNome(rs.getString("Nome"));
 				usu.setFuncionario(rs.getBoolean("Funcionario"));
