@@ -5,30 +5,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Connection;
 
-import pim4sem.aev.business.controlefinanceiro.CompraVenda;
+import com.mysql.jdbc.Connection;
+
+import pim4sem.aev.business.controlefinanceiro.Compra;
 import pim4sem.aev.business.controlefinanceiro.NotaFiscal;
-import pim4sem.aev.business.controlefinanceiro.Venda;
-import pim4sem.aev.business.funcionarios.Funcionario;
 import pim4sem.aev.business.produto.Produto;
 
-public class VendaDAO {
-	
-	public void cadastraVenda(Venda venda) throws SQLException{
+public class CompraDAO {
+	public void cadastraCompra(Compra compra) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO Venda (id_produto, valor_produto, qtd_produto, id_nota_fiscal) ");
+		sql.append("INSERT INTO Compra (id_produto, valor_produto, qtd_produto, id_nota_fiscal) ");
 		sql.append("VALUES (?, ?, ?, ?)");
 		
 		PreparedStatement stmt = conn.prepareStatement(sql.toString());
 		
 		try {
-			stmt.setInt(1, venda.getProduto().getCodigo());
-			stmt.setDouble(2, venda.getProduto().getValorVenda());
-			stmt.setInt(3, venda.getQuantidadeProduto());
-			stmt.setInt(4, venda.getNf().getCodigoNotaFiscal());
+			stmt.setInt(1, compra.getProduto().getCodigo());
+			stmt.setDouble(2, compra.getProduto().getValorCompra());
+			stmt.setInt(3, compra.getQuantidadeProduto());
+			stmt.setInt(4, compra.getNf().getCodigoNotaFiscal());
 			stmt.execute();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -39,12 +37,12 @@ public class VendaDAO {
 		}
 	}
 	
-	public int retornaVenda(int recebeNotaFiscal) throws SQLException{
+	public int retornaCompra(int recebeNotaFiscal) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		int retornaVenda = 0;
+		int retornaCompra = 0;
 		
-		String sql = "SELECT id_venda FROM Venda WHERE id_nota_fiscal = ?";
+		String sql = "SELECT id_compra FROM Compra WHERE id_nota_fiscal = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
@@ -52,7 +50,7 @@ public class VendaDAO {
 			stmt.setInt(1, recebeNotaFiscal);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
-				retornaVenda = rs.getInt("id_venda");
+				retornaCompra = rs.getInt("id_compra");
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -62,33 +60,34 @@ public class VendaDAO {
 			stmt.close();
 			conn.close();
 		}
-		return retornaVenda;
+		return retornaCompra;
 	}
 	
-	public List<Venda> retornaVenda() throws SQLException{
+	public List<Compra> retornaCompra() throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		List<Venda> listaVenda = new ArrayList<>();
+		List<Compra> listaCompra = new ArrayList<>();
 		
-		String sql = "SELECT id_venda, id_produto, valor_produto, qtd_produto, id_nota_fiscal FROM Venda";
+		String sql = "SELECT id_compra, id_produto, valor_produto, qtd_produto, id_nota_fiscal FROM Compra";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		try {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
-				Venda venda = new Venda();
+				Compra compra = new Compra();
 				Produto produto = new Produto();
 				NotaFiscal nf = new NotaFiscal();
-				venda.setIdVenda(rs.getInt("id_venda"));
+				compra.setIdCompra(rs.getInt("id_compra"));
 				produto.setCodigo(rs.getInt("id_produto"));
-				produto.setValorVenda(rs.getInt("valor_produto"));
-				venda.setProduto(produto);
-				venda.setQuantidadeProduto(rs.getInt("qtd_produto"));
+				produto.setValorCompra(rs.getInt("valor_produto"));
+				compra.setProduto(produto);
+				compra.setQuantidadeProduto(rs.getInt("qtd_produto"));
 				nf.setCodigoNotaFiscal(rs.getInt("id_nota_fiscal"));
-				venda.setNf(nf);
-				listaVenda.add(venda);
+				compra.setNf(nf);
+				listaCompra.add(compra);
 			}
+			rs.close();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -96,7 +95,6 @@ public class VendaDAO {
 			stmt.close();
 			conn.close();
 		}
-		return listaVenda;
+		return listaCompra;
 	}
-	
 }
