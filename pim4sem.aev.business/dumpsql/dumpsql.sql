@@ -5,8 +5,8 @@ USE PIMAEV;
 
 -- Criação de usuário para interagir com banco
 
-CREATE USER 'dbinterator'@'localhost' IDENTIFIED BY 'dbit@aevpim';
-GRANT ALL ON PIMAEV.* TO 'dbinterator'@'localhost';
+-- CREATE USER 'dbinterator'@'localhost' IDENTIFIED BY 'dbit@aevpim';
+-- GRANT ALL ON PIMAEV.* TO 'dbinterator'@'localhost';
 
 -- Usuários (Funcionários + Cliente)
 
@@ -36,7 +36,6 @@ CREATE TABLE Funcionario
     ano_nascimento			DATE			NOT NULL,
     ano_contratacao			DATETIME		NOT NULL,
     PRIMARY KEY (matricula),
-    FOREIGN KEY (id_gerente) REFERENCES Gerente (id_gerente),
     FOREIGN KEY (id_cargo) REFERENCES Cargo (id_cargo)
 );
 
