@@ -13,7 +13,7 @@ import pim4sem.aev.business.produto.*;
 
 public class ProdutoDAO {
 	
-	public void registarProduto(Produto produto) throws SQLException{
+	public void registrarProduto(Produto produto) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
 		TipoProdutoDAO tipoProduto = new TipoProdutoDAO();
@@ -28,7 +28,7 @@ public class ProdutoDAO {
 		
 		int tipoProd = tipoProduto.retornaTipoProduto(produto.getTipoProduto());
 		
-		if(tipoProd > 0){
+		if(tipoProd < 1){
 			tipoProduto.registraTipoProduto(produto.getTipoProduto());
 			tipoProd = tipoProduto.retornaTipoProduto(produto.getTipoProduto());
 		}
