@@ -21,9 +21,6 @@ public class Produto {
 	private int quantidadeMinima;
 	private char posicaoEstoque;
 	private int posicaoPrateleira;
-	private ProdutoDAO ptd = new ProdutoDAO();
-	private List<Produto> produtoLista = new ArrayList<>();
-	private Produto pt = new Produto();
 	
 	public void registraProduto(String recebeNome, String recebeMarca, String recebeCor, double recebeValorCompra,
 			double recebeValorVenda, String recebeDescricao) throws SQLException{
@@ -35,7 +32,7 @@ public class Produto {
 			pt.setValorVenda(recebeValorVenda);
 			pt.setDescricao(recebeDescricao);
 		
-			ptd.registarProduto(pt);
+			ptd.registrarProduto(pt);
 	}	
 
 	public List<Produto> pesquisaProduto(int recebeCodigo) throws SQLException{
@@ -62,7 +59,7 @@ public class Produto {
 		pt.setValorVenda(recebeValorVenda);
 		pt.setDescricao(recebeDescricao);
 	
-		ptd.registarProduto(pt);
+		ptd.registrarProduto(pt);
 
 	}
 	

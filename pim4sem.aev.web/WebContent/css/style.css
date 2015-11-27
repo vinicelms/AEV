@@ -1,3 +1,21 @@
+@font-face
+{
+    font-family: "Oswald-Regular";
+    src: url(../fonts/Oswald-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: "Oswald-Light";
+    src: url(../fonts/Oswald-Light.ttf);
+}
+
+@font-face
+{
+    font-family: "Oswald-Bold";
+    src: url(../fonts/Oswald-Bold.ttf);
+}
+
 .corpo_index
 {
     background-color: #F7F7F9;
@@ -24,8 +42,8 @@
 
 .sapato_circulo
 {
-    width: 3%;
-    height: 6%;
+    width: 40px;
+    height: 45px;
     position: absolute;
 }
 
@@ -50,7 +68,7 @@
 {
     font-size: 38px;
     margin-left: 90px;
-    font-family: "Oswald", cursive;
+    font-family: "Oswald-Bold", cursive;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -64,13 +82,7 @@
 #links a
 {
     margin-right: 40px;
-    color: #FDB225;
-}
-
-@font-face
-{
-    font-family: "Oswald";
-    src: url(../fonts/Oswald-Regular.ttf);
+    color: #F7F7F9;
 }
 
 .full_body
@@ -88,13 +100,21 @@
 {
     width: 95%;
     margin-left: 2.5%;
+    font-size: 17px;
     text-align: justify;
+    font-family: "Oswald-Light", cursive;
 }
 
 .full_body_text h1
 {
-    font-family: "Oswald", cursive;
+    font-family: "Oswald-Light", cursive;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.full_body_text td
+{
+    font-family: "Oswald-Light", cursive;
+    font-weight: 100;
 }
 
 #rodape
@@ -102,7 +122,7 @@
     margin: auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     background-color: #EF3D31;
-    font-family: "Oswald", cursive;
+    font-family: "Oswald-Bold", cursive;
     font-size: 15px;
     margin-top: 30px;
 }
@@ -116,5 +136,11 @@
 #rodape_texto_bold
 {
     font-weight: bold;
+    font-family: "Oswald-Regular", cursive;
     font-size: 18px;
+}
+
+textarea
+{
+    resize: none;
 }

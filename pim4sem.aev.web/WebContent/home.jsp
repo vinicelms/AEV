@@ -12,11 +12,13 @@
         <span class="row">
         
             <div id="TopoBox">
-                <div class="circulo_sapato"></div>
-                <img src="images/sapato_vetorial.ico" class="sapato_circulo"
-                     style="margin-top: 15px; margin-left: 15px">
-                <div id="TextoTopoBox">
-                    PIM AEV
+                <a style="color: #292929;" href="home.jsp">
+                    <div class="circulo_sapato"></div>
+                        <img src="images/sapato_vetorial.ico" class="sapato_circulo"
+                         style="margin-top: 13px; margin-left: 20px">
+                        <div id="TextoTopoBox">
+                            PIM AEV
+                </a>
                     <span id="links">
                         <a href="#">Link 1</a>
                         <a href="#">Link 2</a>
