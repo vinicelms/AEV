@@ -2,7 +2,7 @@
     
 <html>
     <head>
-        <title>AEV - Edita Produto</title>
+        <title>AEV - Cadastra Produto</title>
         <meta charset="utf-8">
         <!-- Define os pacotes externos para funcionamento da página, como CSS e Fonts -->
         <link href="css/style.css" rel="stylesheet"/>
@@ -61,14 +61,11 @@
             
             <div class="full_body">
                 <div class="full_body_text">
-                    <h1>Editar Produto</h1>
+                    <h1>Cadastra Produto</h1>
                     <br>
                     
-                    <form class="ui form" action="" method="post">
+                    <form class="ui form" action="" method="post" id="cadastroProduto">
                         <div class="fields">
-                            <div class="two wide field labelholder">
-                                <input id="codigo" name="codigo" type="text" readonly maxlength="10" placeholder="Código">
-                            </div>
                             <div class="six wide field">
                                 <div class="ui icon input labelholder">
                                     <input id="nome" name="nome" type="text" required 
@@ -83,7 +80,7 @@
                                     <i id="iconeMarca" class="warning circle icon"></i>
                                 </div>
                             </div>
-                            <div class="three wide field">
+                            <div class="four wide field">
                                 <div class="ui icon input labelholder">
                                     <input id="cor" name="cor" type="text" required onkeyup="return validaFormulario(false)"
                                            placeholder="Cor do produto">
@@ -133,7 +130,7 @@
                                 <div class="ui icon input">
                                     <select id="tipoProduto" name="tipoProduto" class="ui fluid dropdown" 
                                             onchange="return validaFormulario(false)">
-                                        <option value="" placeholder="teste">Tipo de Produto</option>
+                                        <option value="">Tipo de Produto</option>
                                         <option value="produto1">Produto 1</option>
                                     </select>
                                     <i class="dropdown icon"></i>
@@ -148,14 +145,15 @@
                             <div id="carac_descricao" class="floated right"></div>
                             <br>
                         </div>
+                        <button class="ui left floated negative button" type="reset">Limpa Formulário</button>
+                        <button class="ui submit right floated positive button" type="submit" 
+                                onclick="return insereProdutoLista()">Insere Produto</button>
+                        <br>
+                        <br>
+                        <div id="listaCadastro"></div>
                         <div id="errorForm">
                             <div id="errorMensagem"></div>
                         </div>
-                        <br>
-                        <button class="ui left floated negative button" type="reset">Cancelar</button>
-                        <button class="ui submit right floated positive button" type="submit" 
-                                onclick="return validaFormulario(true)">Confirmar</button>
-                        <br>
                         <br>
                     </form>
                     

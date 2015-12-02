@@ -11,9 +11,22 @@
         <link href="css/Semantic-UI/semantic.css" rel="stylesheet"/>
         <link href="css/Foundation-5.5.3/css/foundation.css" rel="stylesheet"/>
         <link href="images/sapato_vetorial.ico" rel="icon"/>
+        <link href="js/labelholder.css" rel="stylesheet"/>
         <script language="javascript" src="js/TableFilter/tablefilter.js" type="text/javascript"></script>
+        <script language="javascript" src="js/jquery.js" type="text/javascript"></script>
+        <script language="javascript" src="js/event.js" type="text/javascript"></script>
+        <script language="javascript" src="js/jquery.maskedinput.js" type="text/javascript"></script>
+        <script language="javascript" src="js/jquery.maskMoney.js" type="text/javascript"></script>
+        <script language="javascript" src="css/Semantic-UI/semantic.js" type="text/javascript"></script>
+        <script language="javascript" src="js/labelholder.js" type="text/javascript"></script>
+        
+        <script>
+            $(document).ready( function() {
+                $(".labelholder").labelholder();
+            });
+        </script>
     </head>
-    <body class="corpo_geral" onload="init()">
+    <body class="corpo_geral" onload="defineMascaraPesquisaProduto()">
         <span class="row">
         
             <div id="TopoBox">
@@ -36,6 +49,44 @@
             <div class="full_body">
                 <div class="full_body_text">
                     <h1>Produto</h1>
+                    
+                    <form class="ui form grid">
+                        <div class="ui four column grid">
+                            <div class="row">
+                                <div class="column">
+                                    <button id="cadastraProduto" class="ui submit positive button">
+                                        Cadastrar Novo Produto</button>
+                                </div>
+                                <div class="column"></div>
+                                <div class="column">
+                                    <select id="coluna" onchange="defineMascaraPesquisaProduto()" 
+                                            class="ui fluid dropdown">
+                                        <option value="">Tipo de Informação</option>
+                                        <option value="Codigo">Código</option>
+                                        <option value="Nome">Nome</option>
+                                        <option value="Marca">Marca</option>
+                                        <option value="Cor">Cor</option>
+                                        <option value="Descricao">Descrição</option>
+                                        <option value="Tamanho">Tamanho</option>
+                                        <option value="Tipo de Produto">Tipo de Produto</option>
+                                        <option value="Quantidade Minima">Quantidade Mínima</option>
+                                        <option value="Quantidade Estoque">Quantidade em Estoque</option>
+                                        <option value="Valor de Compra">Valor de Compra</option>
+                                        <option value="Valor de Venda">Valor de Venda</option>
+                                    </select>
+                                </div>
+                                <div class="column">
+                                    <div class="ui icon input labelholder">
+                                        <input id="pesquisa_produto" placeholder="Pesquisar produto" type="text">
+                                        <button class="ui icon button" onclick="defineMascaraPesquisaProduto()">
+                                            <i class="search icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
                     <table id="table_produto" class="ui selectable celled table">
                         <thead>
                             <tr>
@@ -108,7 +159,16 @@
                 on_change: false,
             };
 
-            var tf = setFilterGrid("table_produto", tableFilter);        
+            var tf = setFilterGrid("table_produto", tableFilter);
+            
+            $('.ui.dropdown').dropdown();
+            
+            $(document).ready(function(){
+                $("#cadastraProduto").click(function(){
+                    document.location.href = "cadastra_produto.jsp";
+                    return false;
+                });
+            });
         </script>
         
         <div id="rodape">
