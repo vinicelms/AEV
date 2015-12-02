@@ -37,9 +37,9 @@ public class ContainerDeJanelas extends JFrame{
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent evt){
 				//System.exit(0);
-				MenuTela s = new MenuTela();
-				getContentPane().add(s);
-				s.show();
+				//MenuTela s = new MenuTela();
+				//getContentPane().add(s);
+				//s.show();
 				
 			}
 		};
