@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane style="-fx-background-color: #e7e7e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pim4sem.aev.desktop.controledetelas.EstoqueTelaController">
+   <top>
+      <MenuBar style="-fx-background-color: #017ec1;" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Conta">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onExit" text="Encerrar acesso" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ajuda">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Sobre..." />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" snapToPixel="false" style="-fx-background-color: #e7e7e9;" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="txtId" alignment="CENTER" layoutX="100.0" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" promptText="Informe o ID do produto">
+               <font>
+                  <Font name="DejaVu Sans Condensed Bold" size="16.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btnPesquisar" layoutX="100.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onPesquisar" prefHeight="30.0" prefWidth="250.0" text="Pesquisar" />
+            <Button fx:id="btnLimpar" layoutX="450.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onLimpar" prefHeight="30.0" prefWidth="250.0" text="Limpar" />
+            <Label layoutX="271.0" layoutY="20.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" text="Consulta de Estoque">
+               <font>
+                  <Font name="Copperplate Gothic Light" size="22.0" />
+               </font>
+            </Label>
+            <Separator layoutX="55.0" layoutY="180.0" prefHeight="10.0" prefWidth="700.0" />
+            <Label layoutX="100.0" layoutY="206.0" text="Nome do Produto" />
+            <Label layoutX="105.0" layoutY="267.0" text="Descrição" />
+            <TextField fx:id="txtNome" disable="true" layoutX="104.0" layoutY="231.0" prefHeight="25.0" prefWidth="600.0" style="-fx-border-color: #000000;" />
+            <TextField fx:id="txtDesc" disable="true" layoutX="105.0" layoutY="284.0" prefHeight="25.0" prefWidth="600.0" style="-fx-border-color: #000000;" />
+            <Separator layoutX="54.0" layoutY="400.0" prefHeight="10.0" prefWidth="700.0" />
+            <TextField fx:id="txtValor" disable="true" layoutX="450.0" layoutY="445.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
+            <TextField fx:id="txtQuantidade" disable="true" layoutX="100.0" layoutY="445.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
+            <Label layoutX="450.0" layoutY="429.0" text="Valor do Produto" />
+            <Label layoutX="105.0" layoutY="429.0" text="Quantidade em Estoque" />
+            <Label layoutX="110.0" layoutY="322.0" text="Cor" />
+            <Label layoutX="455.0" layoutY="322.0" text="Marca" />
+            <TextField fx:id="txtCor" disable="true" layoutX="105.0" layoutY="338.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
+            <TextField fx:id="txtMarca" disable="true" layoutX="455.0" layoutY="338.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
