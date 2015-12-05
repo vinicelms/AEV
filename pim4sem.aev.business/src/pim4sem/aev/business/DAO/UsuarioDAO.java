@@ -106,7 +106,7 @@ public class UsuarioDAO {
 	public boolean loginUsuario(String recebeLogin, String recebeSenha) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 
-		int login = 0;
+		String login = null;
 		String senha = null;
 		int status = 0;
 		boolean verificaLogin = false;
@@ -126,7 +126,7 @@ public class UsuarioDAO {
 				stmt.setString(2, recebeSenha);
 
 				ResultSet rs = stmt.executeQuery();
-				login = rs.getInt("usu_login");
+				login = rs.getString("usu_login");
 				senha = rs.getString("usu_senha");
 				status = rs.getInt("id_status");
 				rs.close();
