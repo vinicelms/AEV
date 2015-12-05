@@ -147,6 +147,7 @@ public class ProdutoDAO {
 			stmt.setDouble(9, produto.getValorCompra());
 			stmt.setDouble(10, produto.getValorVenda());
 			stmt.setInt(11, idProduto);
+			stmt.execute();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

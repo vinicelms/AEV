@@ -10,6 +10,7 @@ public class ConnectionFactory {
 	public Connection getConnection(){
 		
 		try{
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			return (Connection) DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/pimaev", "dbinterator", "dbit@aevpim");
 		}

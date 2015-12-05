@@ -1,12 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
     <head>
         <title>AEV - Pim 4 Sem</title>
         <meta charset="utf-8">
-        <!-- Define os pacotes externos para funcionamento da página, como CSS e Fonts -->
+        <!-- Define os pacotes externos para funcionamento da pÃ¡gina, como CSS e Fonts -->
         <link href="css/style.css" rel="stylesheet"/>
         <link href="css/Semantic-UI/semantic.css" rel="stylesheet"/>
         <link href="css/Foundation-5.5.3/css/foundation.css" rel="stylesheet"/>
         <link href="images/sapato_vetorial.ico" rel="icon"/>
+        
+        <script>
+            $(document).ready(function(){
+                $('#rodape').css("margin-top", function() {
+                    var valor = $('body').height() - $('.row').height() - $('#rodape').height();
+                    if(valor > 0){
+                        return valor;
+                    } else {
+                        return 30;
+                    }
+                });
+            });
+            
+            $(window).resize(function() {
+               $('#rodape').css("margin-top", function() {
+                    var valor = $('body').height() - $('.row').height() - $('#rodape').height();
+                   if(valor > 0){
+                       return valor;
+                   } else {
+                       return 30;
+                   }
+               }); 
+            });
+        </script>
     </head>
     <body class="corpo_geral">
         <span class="row">
@@ -60,8 +87,8 @@ Nullam quis tristique purus, iaculis sodales risus. Suspendisse potenti. Maecena
                      style="margin-top: -5px; margin-left: 95%">
                 <div id="rodape_texto">
                     <span id="rodape_texto_bold">Desnevolvido por:<br></span>
-                    <span id="rodape_texto_bold">A</span>ndré Luiz Costa<br>
-                    <span id="rodape_texto_bold">E</span>dson de Assis Dalécio<br>
+                    <span id="rodape_texto_bold">A</span>ndrÃ© Luiz Costa<br>
+                    <span id="rodape_texto_bold">E</span>dson de Assis DalÃ©cio<br>
                     <span id="rodape_texto_bold">V</span>inicius Celms
                 </div>
             </div>

@@ -1,5 +1,13 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="pim4sem.aev.business.produto.Produto" %>
+<%@ page import="pim4sem.aev.business.DAO.ProdutoDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE HTML>
     
 <html>
@@ -19,11 +27,26 @@
         <script language="javascript" src="js/jquery.maskMoney.js" type="text/javascript"></script>
         <script language="javascript" src="css/Semantic-UI/semantic.js" type="text/javascript"></script>
         <script language="javascript" src="js/labelholder.js" type="text/javascript"></script>
+        <script language="javascript" src="js/mutate/mutate.events.js" type="text/javascript"></script>
+        <script language="javascript" src="js/mutate/mutate.min.js" type="text/javascript"></script>
         
         <script>
             $(document).ready( function() {
                 $(".labelholder").labelholder();
+                reposicionaRodape();
             });
+            
+            function reposicionaRodape() {
+                $('#rodape').css("margin-top", function() {
+                    var valor = $('body').height() - $('.row').height() - $('#rodape').height();
+                    if(valor > 0){
+                        return valor;
+                    } else {
+                        return 30;
+                    }
+                });
+                setTimeout(reposicionaRodape, 100);
+            }
         </script>
     </head>
     <body class="corpo_geral" onload="defineMascaraPesquisaProduto()">
@@ -50,104 +73,75 @@
                 <div class="full_body_text">
                     <h1>Produto</h1>
                     
-                    <form class="ui form grid">
+                    <form id="formProduto" action="edita_produto.jsp" method="post" class="ui form grid">
                         <div class="ui four column grid">
                             <div class="row">
+                            	<div class="column"></div>
+                            	<div class="column"></div>
+                            	<div class="column">
+                                    <input id="valorEdicao" name="valorEdicao" type="hidden" value="">
+                                </div>
                                 <div class="column">
-                                    <button id="cadastraProduto" class="ui submit positive button">
+                                    <button id="cadastraProduto" class="ui submit positive button right floated">
                                         Cadastrar Novo Produto</button>
-                                </div>
-                                <div class="column"></div>
-                                <div class="column">
-                                    <select id="coluna" onchange="defineMascaraPesquisaProduto()" 
-                                            class="ui fluid dropdown">
-                                        <option value="">Tipo de Informação</option>
-                                        <option value="Codigo">Código</option>
-                                        <option value="Nome">Nome</option>
-                                        <option value="Marca">Marca</option>
-                                        <option value="Cor">Cor</option>
-                                        <option value="Descricao">Descrição</option>
-                                        <option value="Tamanho">Tamanho</option>
-                                        <option value="Tipo de Produto">Tipo de Produto</option>
-                                        <option value="Quantidade Minima">Quantidade Mínima</option>
-                                        <option value="Quantidade Estoque">Quantidade em Estoque</option>
-                                        <option value="Valor de Compra">Valor de Compra</option>
-                                        <option value="Valor de Venda">Valor de Venda</option>
-                                    </select>
-                                </div>
-                                <div class="column">
-                                    <div class="ui icon input labelholder">
-                                        <input id="pesquisa_produto" placeholder="Pesquisar produto" type="text">
-                                        <button class="ui icon button" onclick="defineMascaraPesquisaProduto()">
-                                            <i class="search icon"></i>
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    
-                    <table id="table_produto" class="ui selectable celled table">
-                        <thead>
-                            <tr>
-                                <th>Cod.</th>
-                                <th>Nome</th>
-                                <th>Marca</th>
-                                <th>Cor</th>
-                                <th>Compra ($)</th>
-                                <th>Venda ($)</th>
-                                <th>Descrição</th>
-                                <th>Tamanho</th>
-                                <th>Tipo de Produto</th>
-                                <th>Estoque</th>
-                                <th>Minima</th>
-                                <th><i class="write icon"></i></th>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Nome Teste</td>
-                                <td>Marca Teste</td>
-                                <td>Cor Teste</td>
-                                <td>R$ 50.00</td>
-                                <td>R$ 60.00</td>
-                                <td>Tenha um gás a mais na corrida com o Tênis Asics Gel Kayano 21 NYC. Inspirado na grande Maratona de Nova York, ele chega em sua vigésima primeira edição, com novo design e novas combinações de cores.</td>
-                                <td>48</td>
-                                <td>Sapato</td>
-                                <td>20</td>
-                                <td>10</td>
-                                <td><a href="edita_produto.jsp"><i class="write icon"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>456</td>
-                                <td>Nome</td>
-                                <td>Marca</td>
-                                <td>Cor</td>
-                                <td>R$ 50.00</td>
-                                <td>R$ 60.00</td>
-                                <td>Descrição</td>
-                                <td>48</td>
-                                <td>Sapato</td>
-                                <td>20</td>
-                                <td>10</td>
-                                <td><a href="edita_produto.jsp"><i class="write icon"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Nome Teste</td>
-                                <td>Marca Teste</td>
-                                <td>Cor Teste</td>
-                                <td>R$ 50.00</td>
-                                <td>R$ 60.00</td>
-                                <td>Descrição Teste</td>
-                                <td>48</td>
-                                <td>Sapato</td>
-                                <td>15</td>
-                                <td>10</td>
-                                <td><a href="edita_produto.jsp"><i class="write icon"></i></a></td>
-                            </tr>
-                        </thead>
-                    </table>
-                    <br>
+                	</form>
+	                    <table id="table_produto" class="ui selectable celled table">
+	                        <thead>
+	                            <tr>
+	                                <th>Cod.</th>
+	                                <th>Nome</th>
+	                                <th>Marca</th>
+	                                <th>Cor</th>
+	                                <th>Compra ($)</th>
+	                                <th>Venda ($)</th>
+	                                <th>Descrição</th>
+	                                <th>Tamanho</th>
+	                                <th>Tipo de Produto</th>
+	                                <th>Estoque</th>
+	                                <th>Minima</th>
+	                                <th></th>
+	                            </tr>
+	                        </thead>
+	                        <tr>
+	                        	<%                        	
+	                        		ProdutoDAO prod = new ProdutoDAO();
+	                        		Produto produto = new Produto();
+	                        		List<Produto> listaProduto = new ArrayList<Produto>();
+	                        		listaProduto = prod.retornaProduto(null, null);
+	                        		for(int i = 0; i < listaProduto.size(); i++){
+	                        			out.println("<tr><td>");
+	                        			out.println(listaProduto.get(i).getCodigo());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getNome());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getMarca());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getCor());
+	                        			out.println("</td><td>");
+	                        			out.println("R$ " + listaProduto.get(i).getValorCompra());
+	                        			out.println("</td><td>");
+	                        			out.println("R$ " + listaProduto.get(i).getValorVenda());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getDescricao());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getTamanho());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getTipoProduto());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getQuantidadeEstoque());
+	                        			out.println("</td><td>");
+	                        			out.println(listaProduto.get(i).getQuantidadeMinima());
+	                        			out.println("</td><td><i id='editaProduto' onclick='editaProduto(" +
+	                        					listaProduto.get(i).getCodigo() + ")' " +
+	                        					"class='write icon'></i></td></tr>");
+	                        		}
+	                        	%>
+	                        </tr>
+	                    </table>
+                    	<br>
                 </div>
             </div>
             

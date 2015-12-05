@@ -1,5 +1,13 @@
-<!DOCTYPE HTML>
-    
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="pim4sem.aev.business.DAO.TipoProdutoDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%
+	TipoProdutoDAO tp = new TipoProdutoDAO();
+	List<String> listaTp = new ArrayList<>();
+	listaTp = tp.retornaTipoProduto();
+%>
 <html>
     <head>
         <title>AEV - Cadastra Produto</title>
@@ -35,6 +43,25 @@
             
             $(document).ready(function(){
                 $(".labelholder").labelholder();
+                $('#rodape').css("margin-top", function() {
+                    var valor = $('body').height() - $('.row').height() - $('#rodape').height();
+                    if(valor > 0){
+                        return valor;
+                    } else {
+                        return 30;
+                    }
+                });
+            });
+            
+            $(window).resize(function() {
+                $('#rodape').css("margin-top", function() {
+                    var valor = $('body').height() - $('.row').height() - $('#rodape').height();
+                    if(valor > 0){
+                        return valor;
+                    } else {
+                        return 30;
+                    }
+                });
             });
         </script>
         
@@ -64,25 +91,25 @@
                     <h1>Cadastra Produto</h1>
                     <br>
                     
-                    <form class="ui form" action="" method="post" id="cadastroProduto">
+                    <form class="ui form" action="cadastra_lista.jsp" method="post" id="cadastroProduto">
                         <div class="fields">
                             <div class="six wide field">
                                 <div class="ui icon input labelholder">
-                                    <input id="nome" name="nome" type="text" required 
+                                    <input id="nome" name="nome" type="text" 
                                            onkeyup="return validaFormulario(false)" placeholder="Nome do produto">
                                     <i id="iconeNome" class="warning circle icon"></i>
                                 </div>
                             </div>
                             <div class="six wide field">
                                 <div class="ui icon input labelholder">
-                                    <input id="marca" name="marca" type="text" required 
+                                    <input id="marca" name="marca" type="text" 
                                            onkeyup="return validaFormulario(false)" placeholder="Marca do produto">
                                     <i id="iconeMarca" class="warning circle icon"></i>
                                 </div>
                             </div>
                             <div class="four wide field">
                                 <div class="ui icon input labelholder">
-                                    <input id="cor" name="cor" type="text" required onkeyup="return validaFormulario(false)"
+                                    <input id="cor" name="cor" type="text" onkeyup="return validaFormulario(false)"
                                            placeholder="Cor do produto">
                                     <i id="iconeCor" class="warning circle icon"></i>
                                 </div>
@@ -92,7 +119,7 @@
                             <div class="three wide field">
                                 <div class="ui icon input labelholder">
                                     <input id="valorCompra" name="valorCompra" data-decimal="," data-prefix="R$ " 
-                                       type="text" maxlength="9" required onkeyup="return validaFormulario(false)"
+                                       type="text" maxlength="9" onkeyup="return validaFormulario(false)"
                                            placeholder="Valor de Compra">
                                     <i id="iconeValorCompra" class="warning circle icon"></i>
                                 </div>
@@ -100,28 +127,28 @@
                             <div class="three wide field">
                                 <div class="ui icon input labelholder">
                                     <input id="valorVenda" name="valorVenda" data-decimal="," data-prefix="R$ " 
-                                       type="text" maxlength="9" required onkeyup="return validaFormulario(false)"
+                                       type="text" maxlength="9" onkeyup="return validaFormulario(false)"
                                            placeholder="Valor de Venda">
                                     <i id="iconeValorVenda" class="warning circle icon"></i>
                                 </div>
                             </div>
                             <div class="three  wide field">
                                 <div class="ui icon input labelholder">
-                                    <input name="tamanho" id="tamanho" type="text" maxlength="2" required 
-                                           placeholder="Tamanho">
+                                    <input name="tamanho" id="tamanho" type="text" maxlength="2" 
+                                           placeholder="Tamanho" onkeyup="return validaFormulario(false)">
                                     <i id="iconeTamanho" class="warning circle icon"></i>
                                 </div>
                             </div>
                             <div class="three wide field">
                                 <div class="ui icon input labelholder">
-                                    <input id="estoque" name="estoque" id="qtd_estoque" maxlength="8" type="text" required
+                                    <input id="estoque" name="estoque" id="qtd_estoque" maxlength="8" type="text"
                                         onkeyup="return validaFormulario(false)" placeholder="Qtd. em Estoque">
                                     <i id="iconeEstoque" class="warning circle icon"></i>
                                 </div>
                             </div>
                             <div class="three wide field">
                                 <div class="ui icon input labelholder">
-                                    <input id="minima" name="minima" id="qtd_minima" maxlength="8" type="text" required
+                                    <input id="minima" name="minima" id="qtd_minima" maxlength="8" type="text"
                                         onkeyup="return validaFormulario(false)" placeholder="Qtd. Mínima">
                                     <i id="iconeMinima" class="warning circle icon"></i>
                                 </div>
@@ -131,7 +158,12 @@
                                     <select id="tipoProduto" name="tipoProduto" class="ui fluid dropdown" 
                                             onchange="return validaFormulario(false)">
                                         <option value="">Tipo de Produto</option>
-                                        <option value="produto1">Produto 1</option>
+                                        <%
+                                        	for(int i = 0; i < listaTp.size(); i++){
+                                        		out.print("<option value='" + listaTp.get(i) + "'>");
+                                        		out.print(listaTp.get(i) + "</option>");
+                                        	}
+                                        %>
                                     </select>
                                     <i class="dropdown icon"></i>
                                     <i id="iconeTipoProduto" style="margin-right: 15px" class="warning circle icon"></i>
@@ -169,7 +201,7 @@
                 <div id="rodape_texto">
                     <span id="rodape_texto_bold">Desnevolvido por:<br></span>
                     <span id="rodape_texto_bold">A</span>ndré Luiz Costa<br>
-                    <span id="rodape_texto_bold">E</span>dson de Assis Dalécio<br>
+                    <span id="rodape_texto_bold">E</span>dson de Assis DalÃ©cio<br>
                     <span id="rodape_texto_bold">V</span>inicius Celms
                 </div>
             </div>

@@ -1,7 +1,10 @@
 package pim4sem.aev.business.DAO;
 
+import java.security.KeyStore.ProtectionParameter;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +36,31 @@ public class TipoProdutoDAO {
 			conn.close();
 		}
 		return retornaTipoProduto;
+	}
+	
+	public List<String> retornaTipoProduto() throws SQLException {
+		Connection conn = new ConnectionFactory().getConnection();
+		
+		List<String> listaTipoProduto = new ArrayList<>();
+		
+		String sql = "SELECT tipo_produto FROM TipoProduto";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		try {
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				listaTipoProduto.add(rs.getString("tipo_produto"));
+			}
+			rs.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			stmt.close();
+			conn.close();
+		}
+		return listaTipoProduto;
 	}
 
 	public int retornaTipoProduto(String recebeTipoProduto) throws SQLException{

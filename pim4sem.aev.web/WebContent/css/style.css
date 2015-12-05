@@ -217,7 +217,49 @@ i#iconeTipoProduto
     color: #FF0000;
 }
 
-#codigo, #nome, #marca, #cor, #valorCompra, #valorVenda, #tamanho, #estoque, #minima, #tipoProduto, #pesquisa_produto
+i#iconeMatricula
+{
+    visibility: hidden;
+    color: #FF0000;
+}
+
+i#iconeNomeFunc
+{
+    visibility: hidden;
+    color: #FF0000;
+}
+
+i#iconeCargo
+{
+    visibility: hidden;
+    color: #FF0000;
+}
+
+i#iconeSetor
+{
+    visibility: hidden;
+    color: #FF0000;
+}
+
+i#iconeSalario
+{
+    visibility: hidden;
+    color: #FF0000;
+}
+
+i#iconeNascimento
+{
+    visibility: hidden;
+    color: #FF0000;
+}
+
+i#iconeContratacao
+{
+    visibility: hidden;
+    color: #FF0000;
+}
+
+#codigo, #nome, #marca, #cor, #valorCompra, #valorVenda, #tamanho, #estoque, #minima, #tipoProduto, #pesquisa_produto, #matricula, #nomeFunc, #cargo, #setor, #salario, #dataNascimento, #dataContratacao
 {
     height: 55px;
     padding-top: 20px;
@@ -239,4 +281,11 @@ i#iconeTipoProduto
     margin-left: 25%;
     cursor: pointer;
     color: #FF0000;
+}
+
+#editaProduto
+{
+	font-size: 15px;
+	cursor: pointer;
+	color: #FF0000;
 }

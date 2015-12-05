@@ -228,10 +228,16 @@ function validaFormulario(error) {
     }
     
     if(!status){
-        if(valorVenda.value.replace("R$ ", "") < valorCompra.value.replace("R$ ", "")){
+    	var incoerente = false;
+        if(valorVenda.value.replace("R$ ", "") < valorCompra.value.replace("R$ ", "") || 
+        		tamanho.value <= 3 || tamanho.value >= 60){
             status = true;
+            incoerente = true;
             texto = "<h4>Informações incoerentes:</h4><ul>";
-            texto = texto + "<li><span class='destacaCampo'>Valor de Venda</span> é menor do que ";
+        }
+        
+        if(valorVenda.value.replace("R$ ", "") < valorCompra.value.replace("R$ ", "")){
+        	texto = texto + "<li><span class='destacaCampo'>Valor de Venda</span> é menor do que ";
             texto = texto + "<span class='destacaCampo'>Valor de Compra</span></li>";
             texto = texto + "<ul><li>Valor de Compra: " + valorCompra.value + "</li>";
             texto = texto + "<li>Valor de Venda: " + valorVenda.value + "</li></ul></ul>";
@@ -239,14 +245,30 @@ function validaFormulario(error) {
             iconeValorCompra.style.visibility = "visible";
             valorVenda.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
             valorCompra.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
-            verificaAreaErro(error, texto);
         } else {
-            iconeValorVenda.style.visibility = "hidden";
+        	iconeValorVenda.style.visibility = "hidden";
             iconeValorCompra.style.visibility = "hidden";
             valorVenda.style.boxShadow = "none";
             valorCompra.style.boxShadow = "none";
-            verificaAreaErro(error, texto);
-            status = false;
+        }
+        
+        if(tamanho.value <= 3 || tamanho.value >= 60){
+        	texto = texto + "<li><span class='destacaCampo'>Tamanho</span> não pode ser menor que ";
+        	texto = texto + "<span class='destacaCampo'>3</span> ou maior que <span class='destacaCampo'>";
+        	texto = texto + "60</span></li>";
+        	texto = texto + "<ul><li>Tamanho informado: " + tamanho.value + "</li></ul></ul>";
+        	iconeTamanho.style.visibility = "visible";
+        	tamanho.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+        } else {
+        	iconeTamanho.style.visibility = "hidden";
+        	tamanho.style.boxShadow = "none";
+        }
+        
+        if(incoerente){
+        	verificaAreaErro(error, texto);
+        } else {
+        	verificaAreaErro(error, texto);
+        	status = false;
         }
     }
     
@@ -351,16 +373,16 @@ function insereProdutoLista() {
         var cell10 = row.insertCell(9);
         var cell11 = row.insertCell(10);
         
-        cell1.innerHTML = nome.value;
-        cell2.innerHTML = marca.value;
-        cell3.innerHTML = cor.value;
-        cell4.innerHTML = valorCompra.value;
-        cell5.innerHTML = valorVenda.value;
-        cell6.innerHTML = tamanho.value;
-        cell7.innerHTML = estoque.value;
-        cell8.innerHTML = minima.value;
-        cell9.innerHTML = tipoProduto.value;
-        cell10.innerHTML = descricao.value;
+        cell1.innerHTML = "<input name='nomeLista' type='hidden' value='" + nome.value + "'>" + nome.value;
+        cell2.innerHTML = "<input name='marcaLista' type='hidden' value='" + marca.value + "'>" + marca.value;
+        cell3.innerHTML = "<input name='corLista' type='hidden' value='" + cor.value + "'>" + cor.value;
+        cell4.innerHTML = "<input name='valorCompraLista' type='hidden' value='" + valorCompra.value + "'>" + valorCompra.value;
+        cell5.innerHTML = "<input name='valorVendaLista' type='hidden' value='" + valorVenda.value + "'>" + valorVenda.value;
+        cell6.innerHTML = "<input name='tamanhoLista' type='hidden' value='" + tamanho.value + "'>" + tamanho.value;
+        cell7.innerHTML = "<input name='estoqueLista' type='hidden' value='" + estoque.value + "'>" + estoque.value;
+        cell8.innerHTML = "<input name='minimaLista' type='hidden' value='" + minima.value + "'>" + minima.value;
+        cell9.innerHTML = "<input name='tipoProdutoLista' type='hidden' value='" + tipoProduto.value + "'>" + tipoProduto.value;
+        cell10.innerHTML = "<input name='descricaoLista' type='hidden' value='" + descricao.value + "'>" + descricao.value;
         cell11.innerHTML = "<i id='removeItem' class='remove icon' onclick='return removeProdutoLista(this)'></i>";
         form.reset();
         contarDescricao();
@@ -396,8 +418,6 @@ function cadastraProduto() {
     var tipoProdutoLista = new Array();
     var descricaoLista = new Array();
     
-    var texto = "";
-    
     for (var r = 0; r < tabela.rows.length; r++) {
         if(r != 0 && r != parseInt(tabela.rows.length - 1)){
             for (var c = 0; c < tabela.rows[r].cells.length; c++) {
@@ -415,5 +435,157 @@ function cadastraProduto() {
         }
     }
     
-    return false;
+    return true;
+}
+
+function validaFuncionario(error) {
+    var matricula = document.getElementById('matricula');
+    var nomeFunc = document.getElementById('nomeFunc');
+    var cargo = document.getElementById('cargo');
+    var setor = document.getElementById('setor');
+    var salario = document.getElementById('salario');
+    var dataNascimento = document.getElementById('dataNascimento');
+    var dataContratacao = document.getElementById('dataContratacao');
+    var sexo = document.getElementsByName('sexo');
+    var gerente = document.getElementsByName('gerente');
+    var checks = document.getElementById('checks');
+    
+    var valSexo, valGerente;
+    
+    for(var i=0; sexo[i]; i++){
+        if(sexo[i].checked){
+            valSexo = sexo[i].value;
+        }
+    }
+    
+    for(var i=0; gerente[i]; i++){
+        if(gerente[i].checked){
+            valGerente = gerente[i].value;
+        }
+    }
+    
+    if(valGerente == undefined || valSexo == undefined) {
+        checks.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        checks.style.boxShadow = "none";
+    }
+    
+    var iconeMatricula = document.getElementById('iconeMatricula');
+    var iconeNomeFunc = document.getElementById('iconeNomeFunc');
+    var iconeCargo = document.getElementById('iconeCargo');
+    var iconeSetor = document.getElementById('iconeSetor');
+    var iconeSalario = document.getElementById('iconeSalario');
+    var iconeDataNascimento = document.getElementById('iconeNascimento');
+    var iconeDataContratacao = document.getElementById('iconeContratacao');
+        
+    var texto = "";
+    var destacaCampo = "<li><span class='destacaCampo'>";
+    var mensagemNaoPreenchido = "</span> - não foi preenchido!";
+    var status = false;
+    
+    if(matricula.value == "" || nomeFunc.value == "" || cargo.value == "" || setor.value == "" || salario.value == "" || 
+       dataNascimento.value == "" || dataContratacao.value == "" || valSexo == undefined || valGerente == undefined){
+        status = true;
+    }
+    
+    if(status){
+        texto = "<h4>Campos sem preenchimento:</h4><ul>";
+    }
+    
+    if(matricula.value == ""){
+        texto = texto + destacaCampo + "Matricula" + mensagemNaoPreenchido;
+        iconeMatricula.style.visibility = "visible";
+        matricula.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        iconeMatricula.style.visibility = "hidden";
+        matricula.style.boxShadow = "none";
+    }
+    
+    if(nomeFunc.value == ""){
+        texto = texto + destacaCampo + "Nome" + mensagemNaoPreenchido;
+        iconeNomeFunc.style.visibility = "visible";
+        nomeFunc.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        iconeNomeFunc.style.visibility = "hidden";
+        nomeFunc.style.boxShadow = "none";
+    }
+    
+    if(cargo.value == ""){
+        texto = texto + destacaCampo + "Cargo" + mensagemNaoPreenchido;
+        iconeCargo.style.visibility = "visible";
+        cargo.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        iconeCargo.style.visibility = "hidden";
+        cargo.style.boxShadow = "none";
+    }
+    
+    if(setor.value == ""){
+        texto = texto + destacaCampo + "Setor" + mensagemNaoPreenchido;
+        iconeSetor.style.visibility = "visible";
+        setor.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        iconeSetor.style.visibility = "hidden";
+        setor.style.boxShadow = "none";
+    }
+    
+    if(salario.value == ""){
+        texto = texto + destacaCampo + "Salário" + mensagemNaoPreenchido;
+        iconeSalario.style.visibility = "visible";
+        salario.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        iconeSalario.style.visibility = "hidden";
+        salario.style.boxShadow = "none";
+    }
+    
+    if(dataNascimento.value == ""){
+        texto = texto + destacaCampo + "Data de Nascimento" + mensagemNaoPreenchido;
+        iconeDataNascimento.style.visibility = "visible";
+        dataNascimento.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        iconeDataNascimento.style.visibility = "hidden";
+        dataNascimento.style.boxShadow = "none";
+    }
+    
+    if(dataContratacao.value == ""){
+        texto = texto + destacaCampo + "Data de Contratação" + mensagemNaoPreenchido;
+        iconeDataContratacao.style.visibility = "visible";
+        dataContratacao.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+    } else {
+        iconeDataContratacao.style.visibility = "hidden";
+        dataContratacao.style.boxShadow = "none";
+    }
+    
+    if(valSexo == undefined || valGerente == undefined){
+        checks.style.boxShadow = "0px 0px 5px rgba(255, 0, 0, 1.0)";
+        if(valSexo == undefined){
+            texto = texto + destacaCampo + "Sexo" + mensagemNaoPreenchido;
+        }
+        
+        if(valGerente == undefined){
+            texto = texto + destacaCampo + "Gerente" + mensagemNaoPreenchido;
+        }
+    } else {
+        checks.style.boxShadow = "none";
+    }    
+    
+    if(status){
+        texto = texto + "</ul>";
+        verificaAreaErro(error, texto);
+    } else {
+        texto = "";
+        verificaAreaErro(error, texto);
+    }
+    
+    if(status){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function editaProduto(codigoProduto) {
+	var valor = document.getElementById('valorEdicao');
+	var form = document.getElementById('formProduto');
+	valor.value = codigoProduto;
+	form.submit();
 }
