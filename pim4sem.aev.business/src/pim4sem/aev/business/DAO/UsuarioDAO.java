@@ -103,7 +103,7 @@ public class UsuarioDAO {
 		return listaUsuario;
 	}
 
-	public boolean loginUsuario(int recebeLogin, String recebeSenha) throws SQLException{
+	public boolean loginUsuario(String recebeLogin, String recebeSenha) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 
 		int login = 0;
@@ -122,7 +122,7 @@ public class UsuarioDAO {
 				verificaLogin = false;
 			}
 			else{
-				stmt.setInt(1, recebeLogin);
+				stmt.setString(1, recebeLogin);
 				stmt.setString(2, recebeSenha);
 
 				ResultSet rs = stmt.executeQuery();
