@@ -41,17 +41,35 @@
             <Separator layoutX="55.0" layoutY="180.0" prefHeight="10.0" prefWidth="700.0" />
             <Label layoutX="100.0" layoutY="206.0" text="Nome do Produto" />
             <Label layoutX="105.0" layoutY="267.0" text="Descrição" />
-            <TextField fx:id="txtNome" disable="true" layoutX="104.0" layoutY="231.0" prefHeight="25.0" prefWidth="600.0" style="-fx-border-color: #000000;" />
-            <TextField fx:id="txtDesc" disable="true" layoutX="105.0" layoutY="284.0" prefHeight="25.0" prefWidth="600.0" style="-fx-border-color: #000000;" />
+            <TextField fx:id="txtNome" disable="true" layoutX="104.0" layoutY="231.0" prefHeight="25.0" prefWidth="600.0" style="-fx-border-color: #000000;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
+            <TextField fx:id="txtDesc" disable="true" layoutX="105.0" layoutY="284.0" prefHeight="25.0" prefWidth="600.0" style="-fx-border-color: #000000;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
             <Separator layoutX="54.0" layoutY="400.0" prefHeight="10.0" prefWidth="700.0" />
-            <TextField fx:id="txtValor" disable="true" layoutX="450.0" layoutY="445.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
-            <TextField fx:id="txtQuantidade" disable="true" layoutX="100.0" layoutY="445.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
+            <TextField fx:id="txtValor" disable="true" layoutX="450.0" layoutY="445.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
+            <TextField fx:id="txtQuantidade" disable="true" layoutX="100.0" layoutY="445.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
             <Label layoutX="450.0" layoutY="429.0" text="Valor do Produto" />
             <Label layoutX="105.0" layoutY="429.0" text="Quantidade em Estoque" />
             <Label layoutX="110.0" layoutY="322.0" text="Cor" />
             <Label layoutX="455.0" layoutY="322.0" text="Marca" />
-            <TextField fx:id="txtCor" disable="true" layoutX="105.0" layoutY="338.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
-            <TextField fx:id="txtMarca" disable="true" layoutX="455.0" layoutY="338.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;" />
+            <TextField fx:id="txtCor" disable="true" layoutX="105.0" layoutY="338.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
+            <TextField fx:id="txtMarca" disable="true" layoutX="455.0" layoutY="338.0" prefHeight="25.0" prefWidth="250.0" style="-fx-border-color: #000000;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
          </children>
       </AnchorPane>
    </center>
