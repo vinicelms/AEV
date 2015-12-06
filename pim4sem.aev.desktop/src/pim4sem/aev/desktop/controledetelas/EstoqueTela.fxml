@@ -12,6 +12,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Conta">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onMenu" text="Retornar ao Menu" />
               <MenuItem mnemonicParsing="false" onAction="#onExit" text="Encerrar acesso" />
             </items>
           </Menu>

@@ -11,38 +11,26 @@ import javafx.scene.control.TextField;
 import pim4sem.aev.business.DAO.ProdutoDAO;
 import pim4sem.aev.business.produto.Produto;
 
-public class EstoqueTelaController {
+public class EstoqueTelaController implements IControlledScreen{
 
 	
 	@FXML
-	private TextField txtId;
-	@FXML
-	private TextField txtNome;
-	@FXML
-	private TextField txtDesc;
-	@FXML
-	private TextField txtCor;
-	@FXML
-	private TextField txtMarca;
-	@FXML
-	private TextField txtQuantidade;
-	@FXML
-	private TextField txtValor;
+	private TextField txtId, txtNome, txtDesc, txtCor, txtMarca, txtQuantidade, txtValor;
 	@FXML 
-	private Button btnPesquisar;
-	@FXML 
-	private Button btnLimpar;
+	private Button btnPesquisar, btnLimpar;
+	
+	ScreensController myController;
 
 	@FXML
 	private void initialize() throws SQLException{
 		btnPesquisar.disableProperty().bind(txtId.textProperty().isEmpty());
 		btnLimpar.disableProperty().bind(txtId.textProperty().isEmpty());
+		txtId.setFocusTraversable(false);
 		
-		
+		/*
 		Produto p1 = new Produto();
 		ProdutoDAO pdd = new ProdutoDAO();
 		
-		/*
 		p1.setCodigo(1122);
 		p1.setNome("crocs");
 		p1.setMarca("feio");
@@ -62,11 +50,25 @@ public class EstoqueTelaController {
 		
 	}
 	
+	@Override
+	public void setScreenParent(ScreensController screenParent){
+		myController = screenParent;	
+	}	
+	
+	//Método para retornar ao menu principal
+	@FXML 
+	public void onMenu(){
+		myController.setScreen(Main.MenuTelaID);
+		onLimpar();
+	}
+	
+	//Método para encerrar o programa
 	@FXML
 	private void onExit(){
 		Platform.exit();
 	}
 	
+	//Esse método é responsável por limpar os campos
 	@FXML
 	private void onLimpar(){
 		txtId.setText(null);
@@ -78,19 +80,26 @@ public class EstoqueTelaController {
 		txtValor.setText(null);
 	}
 	
+	//Esse método é responsável pela pesquisa
 	@FXML
 	private void onPesquisar() throws SQLException, IndexOutOfBoundsException{
 		ProdutoDAO pd = new ProdutoDAO();	
 		List<Produto> produtos = new ArrayList<Produto>();
 		produtos = pd.retornaProduto("Codigo", txtId.getText());
-			
+
 		try {
-			txtNome.setText(produtos.get(0).getNome());
-			txtDesc.setText(produtos.get(0).getDescricao());
-			txtCor.setText(produtos.get(0).getCor());
-			txtMarca.setText(produtos.get(0).getMarca());
-			txtQuantidade.setText(String.valueOf(produtos.get(0).getQuantidadeEstoque()));
-			txtValor.setText(String.valueOf(produtos.get(0).getValorVenda()));
+			for(char letra : txtId.getText().toCharArray()){
+				if(letra >= '0' && letra <= '9'){
+					txtNome.setText(produtos.get(0).getNome());
+					txtDesc.setText(produtos.get(0).getDescricao());
+					txtCor.setText(produtos.get(0).getCor());
+					txtMarca.setText(produtos.get(0).getMarca());
+					txtQuantidade.setText(String.valueOf(produtos.get(0).getQuantidadeEstoque()));
+					txtValor.setText(String.valueOf(produtos.get(0).getValorVenda()));
+				} else {
+					throw new IndexOutOfBoundsException();
+				}				
+			} 
 		} catch (IndexOutOfBoundsException e) {
 			onLimpar();
 			txtId.setText("ID INEXISTENTE");
@@ -103,6 +112,5 @@ public class EstoqueTelaController {
 			System.out.println(produtos.get(i).getCodigo());
 		}*/
 				
-	}
-	
+	}	
 }
