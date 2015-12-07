@@ -1,4 +1,4 @@
-package pim4sem.aev.desktop.controledetelas;
+package scr.pim4sem.aev.desktop.controledetelas;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,6 +19,11 @@ public class MenuTelaController implements IControlledScreen {
 	@FXML 
 	private void onAbrirEstoque(){
 		myController.setScreen(Main.EstoqueTelaID);
+	}
+
+	@FXML 
+	public void onAbrirVendas() {
+		myController.setScreen(Main.VendasTelaID);
 	}
 	
 	

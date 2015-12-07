@@ -1,4 +1,4 @@
-package pim4sem.aev.desktop.controledetelas;
+package scr.pim4sem.aev.desktop.controledetelas;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -11,18 +11,21 @@ public class Main extends Application{
 	public static String MenuTelaFile = "MenuTela.fxml";
 	public static String EstoqueTelaID = "EstoqueTela";
 	public static String EstoqueTelaFile = "EstoqueTela.fxml";
+	public static String VendasTelaID = "VendasTela";
+	public static String VendasTelaFile = "VendasTela.fxml";	
 	
 	@Override
 	public void start(Stage primaryStage){
 		ScreensController mainContainer = new ScreensController();
 		mainContainer.loadScreen(Main.MenuTelaID, MenuTelaFile);
 		mainContainer.loadScreen(Main.EstoqueTelaID, EstoqueTelaFile);
+		mainContainer.loadScreen(Main.VendasTelaID, VendasTelaFile);
 		
 		mainContainer.setScreen(Main.MenuTelaID);
 		
 		Group root = new Group();
 		root.getChildren().addAll(mainContainer);
-		Scene scene = new Scene(root, 800, 550);
+		Scene scene = new Scene(root, 800, 580);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Loja de Calçados");
 		primaryStage.show();

@@ -1,4 +1,4 @@
-package pim4sem.aev.desktop.controledetelas;
+package scr.pim4sem.aev.desktop.controledetelas;
 
 import java.util.HashMap;
 

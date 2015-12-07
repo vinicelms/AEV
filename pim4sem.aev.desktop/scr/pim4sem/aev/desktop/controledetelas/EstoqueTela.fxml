@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane style="-fx-background-color: #e7e7e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pim4sem.aev.desktop.controledetelas.EstoqueTelaController">
+<BorderPane style="-fx-background-color: #e7e7e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scr.pim4sem.aev.desktop.controledetelas.EstoqueTelaController">
    <top>
       <MenuBar style="-fx-background-color: #017ec1;" BorderPane.alignment="CENTER">
         <menus>

@@ -1,4 +1,4 @@
-package pim4sem.aev.desktop.controledetelas;
+package scr.pim4sem.aev.desktop.controledetelas;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import pim4sem.aev.business.DAO.ProdutoDAO;
 import pim4sem.aev.business.produto.Produto;
+
 
 public class EstoqueTelaController implements IControlledScreen{
 
