@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scr.pim4sem.aev.desktop.controledetelas.MenuTelaController">
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnEstoque" layoutX="442.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onAbrirEstoque" prefHeight="300.0" prefWidth="300.0" text="ESTOQUE" textAlignment="CENTER">
+               <font>
+                  <Font name="Copperplate Gothic Bold" size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnCompras" layoutX="60.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onAbrirVendas" prefHeight="300.0" prefWidth="300.0" text="COMPRAS">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Copperplate Gothic Bold" size="24.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
