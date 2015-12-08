@@ -43,7 +43,7 @@
                         Login
                     </h4>
                 </span>
-                <form action="" class="ui form" style="margin-top: 5px">
+                <form action="home.jsp" method="post" class="ui form" style="margin-top: 5px">
                     <div class="ui left icon input fluid labelholder" style="width: 100%; margin-bottom: 5px">
                         <input name="login" type="text" placeholder="Username" 
                                style="height: 55px; padding-top: 20px">
@@ -66,6 +66,10 @@
                 </form>
             </div>
         </span>
+        
+        <%
+        	
+        %>
         
     </body>
 </html>

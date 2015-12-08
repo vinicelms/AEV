@@ -1,9 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<%
+	String userName = null;
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null){
+		for(Cookie cookie : cookies){
+			if(cookie.getName().equals("lojaCalcados")){
+				userName = cookie.getValue();
+			}
+		}
+	}
+	if(userName == null){
+		response.sendRedirect("index.jsp");
+	}
+%>
+
 <html>
     <head>
-        <title>AEV - Funcionario</title>
+        <title>AEV - Edita Funcionário</title>
         <meta charset="utf-8">
         <link href="css/style.css" rel="stylesheet"/>
         <link href="css/Semantic-UI/semantic.css" rel="stylesheet"/>
@@ -66,17 +81,16 @@
                             PIM AEV
                 </a>
                     <span id="links">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                        <a href="#">Link 4</a>
+                        <a href="home.jsp">Home</a>
+                        <a href="produto.jsp">Produtos</a>
+                        <a href="funcionario.jsp">Funcionários</a>
                     </span>
                 </div>
             </div>
             
             <div class="full_body">
                 <div class="full_body_text">
-                    <h1>FuncionÃ¡rio</h1>
+                    <h1>Edita Funcionário</h1>
                     <br>
                     
                     <form class="ui form" name="formFuncionario">

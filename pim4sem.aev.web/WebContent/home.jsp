@@ -1,5 +1,255 @@
+<%@page import="java.lang.ProcessBuilder.Redirect"%>
+<%@page import="pim4sem.aev.business.seguranca.Senha"%>
+<%@page import="pim4sem.aev.business.DAO.UsuarioDAO"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="pim4sem.aev.business.produto.Produto"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="pim4sem.aev.business.DAO.ProdutoDAO"%>
+<%@page import="pim4sem.aev.business.DAO.VendaDAO"%>
+<%@page import="pim4sem.aev.business.DAO.NotaFiscalDAO"%>
+<%@page import="pim4sem.aev.business.controlefinanceiro.NotaFiscal" %>
+<%@page import="pim4sem.aev.business.controlefinanceiro.Venda" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%
+	String userName = null;
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null){
+		for(Cookie cookie : cookies){
+			if(cookie.getName().equals("lojaCalcados")){
+				userName = cookie.getValue();
+			}
+		}
+	}
+	if(userName == null){		
+		request.setCharacterEncoding("UTF-8");
+		String login = request.getParameter("login");
+		String pass = request.getParameter("senha");
+		
+		UsuarioDAO usudao = new UsuarioDAO();
+		Senha senha = new Senha();
+		
+		boolean status = false;
+		
+		if(login == null || senha == null){
+			status = false;
+		} else {
+			status = usudao.loginUsuario(login, senha.criptografaSenha(pass));
+		}
+		
+		if(status){
+			Cookie loginCookie = new Cookie("lojaCalcados", login);
+			loginCookie.setMaxAge(5*60);
+			response.addCookie(loginCookie);
+		} else {
+			response.sendRedirect("index.jsp");
+		}
+	}
+
+	NotaFiscalDAO nfdao = new NotaFiscalDAO();
+	VendaDAO vndao = new VendaDAO();
+	ProdutoDAO prdao = new ProdutoDAO();
+	List<NotaFiscal> listaNf = new ArrayList<>();
+	List<Venda> listaVenda = new ArrayList<>();
+	List<Produto> listaProduto = new ArrayList<>();
+	listaNf = nfdao.retornaNotaFiscal(null, null);
+	listaVenda = vndao.retornaVenda();
+	
+	Calendar cal = Calendar.getInstance();
+	
+	int dia = 0;
+	int segunda = 0;
+	int terca = 0;
+	int quarta = 0;
+	int quinta = 0;
+	int sexta = 0;
+	int sabado = 0;
+	int domingo = 0;
+	
+	int segundaTenis = 0;
+	int segundaChuteira = 0;
+	int segundaSapato = 0;
+	int segundaBota = 0;
+	int tercaTenis = 0;
+	int tercaChuteira = 0;
+	int tercaSapato = 0;
+	int tercaBota = 0;
+	int quartaTenis = 0;
+	int quartaChuteira = 0;
+	int quartaSapato = 0;
+	int quartaBota = 0;
+	int quintaTenis = 0;
+	int quintaChuteira = 0;
+	int quintaSapato = 0;
+	int quintaBota = 0;
+	int sextaTenis = 0;
+	int sextaChuteira = 0;
+	int sextaSapato = 0;
+	int sextaBota = 0;
+	int sabadoTenis = 0;
+	int sabadoChuteira = 0;
+	int sabadoSapato = 0;
+	int sabadoBota = 0;
+	int domingoTenis = 0;
+	int domingoChuteira = 0;
+	int domingoSapato = 0;
+	int domingoBota = 0;
+	
+	String tipoProduto = null;
+	int tenis = 0;
+	int chuteira = 0;
+	int sapato = 0;
+	int bota = 0;
+	
+	for(int i = 0; i < listaVenda.size(); i++){
+		listaProduto = prdao.retornaProduto("Codigo", 
+				String.valueOf(listaVenda.get(i).getProduto().getCodigo()));
+		listaVenda.get(i).setProduto(listaProduto.get(0));
+	}
+	
+	for(int i = 0; i < listaNf.size(); i++){
+		cal.setTime(listaNf.get(i).getDataPagamento());
+		dia = cal.get(Calendar.DAY_OF_WEEK);
+		for(int j = 0; j < listaVenda.size(); j++){
+			tipoProduto = listaVenda.get(i).getProduto().getTipoProduto();
+			if(dia == 1){
+				switch (tipoProduto){
+					case "Tênis":
+						domingoTenis++;
+						break;
+					case "Chuteira":
+						domingoChuteira++;
+						break;
+					case "Sapato":
+						domingoSapato++;
+						break;
+					case "Bota":
+						domingoBota++;
+						break;
+					default:
+						break;
+				}
+			} else if(dia == 2){
+				switch (tipoProduto){
+					case "Tênis":
+						segundaTenis++;
+						break;
+					case "Chuteira":
+						segundaChuteira++;
+						break;
+					case "Sapato":
+						segundaSapato++;
+						break;
+					case "Bota":
+						segundaBota++;
+						break;
+					default:
+						break;
+				}
+			} else if(dia == 3){
+				switch (tipoProduto){
+					case "Tênis":
+						tercaTenis++;
+						break;
+					case "Chuteira":
+						tercaChuteira++;
+						break;
+					case "Sapato":
+						tercaSapato++;
+						break;
+					case "Bota":
+						tercaBota++;
+						break;
+					default:
+						break;
+				}
+			} else if(dia == 4){
+				switch (tipoProduto) {
+					case "Tênis":
+						quartaTenis++;
+						break;
+					case "Chuteira":
+						quartaChuteira++;
+						break;
+					case "Sapato":
+						quartaSapato++;
+						break;
+					case "Bota":
+						quartaBota++;
+						break;
+					default:
+						break;
+				}
+			} else if(dia == 5){
+				switch (tipoProduto){
+					case "Tênis":
+						quintaTenis++;
+						break;
+					case "Chuteira":
+						quintaChuteira++;
+						break;
+					case "Sapato":
+						quintaSapato++;
+						break;
+					case "Bota":
+						quintaBota++;
+						break;
+					default:
+						break;
+				}
+			} else if(dia == 6){
+				switch (tipoProduto){
+					case "Tênis":
+						sextaTenis++;
+						break;
+					case "Chuteira":
+						sextaChuteira++;
+						break;
+					case "Sapato":
+						sextaSapato++;
+						break;
+					case "Bota":
+						sextaBota++;
+						break;
+					default:
+						break;
+				}
+			} else if(dia == 7){
+				switch (tipoProduto){
+					case "Tênis":
+						sabadoTenis++;
+						break;
+					case "Chuteira":
+						sabadoChuteira++;
+						break;
+					case "Sapato":
+						sabadoSapato++;
+						break;
+					case "Bota":
+						sabadoBota++;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
+	segunda = segundaTenis + segundaChuteira + segundaSapato + segundaBota;
+	terca = tercaTenis + tercaChuteira + tercaSapato + tercaBota;
+	quarta = quartaTenis + quartaChuteira + quartaSapato + quartaBota;
+	quinta = quintaTenis + quintaChuteira + quintaSapato + quintaBota;
+	sexta = sextaTenis + sextaChuteira + sextaSapato + sextaBota;
+	sabado = sabadoTenis + sabadoChuteira + sabadoSapato + sabadoBota;
+	domingo = domingoTenis + domingoChuteira + domingoSapato + domingoBota;
+	
+	tenis = segundaTenis + tercaTenis + quartaTenis + quintaTenis + sextaTenis + sabadoTenis + domingoTenis;
+	chuteira = segundaChuteira + tercaChuteira + quartaChuteira + quintaChuteira + sextaChuteira + sabadoChuteira + domingoChuteira;
+	sapato = segundaSapato + tercaSapato + quartaSapato + quintaSapato + sextaSapato + sabadoSapato + domingoSapato;
+	bota = segundaBota + tercaBota + quartaBota + quintaBota + sextaBota + sabadoBota + domingoBota;
+%>
 
 <html>
     <head>
@@ -10,9 +260,19 @@
         <link href="css/Semantic-UI/semantic.css" rel="stylesheet"/>
         <link href="css/Foundation-5.5.3/css/foundation.css" rel="stylesheet"/>
         <link href="images/sapato_vetorial.ico" rel="icon"/>
+        <script language="javascript" src="js/Chart.js" type="text/javascript"></script>
         
         <script>
-            $(document).ready(function(){
+            $(document).ready( function() {
+                $(".labelholder").labelholder();
+                reposicionaRodape();
+            });
+            
+            function pegaTamanho() {
+            	return 500;
+            }
+            
+            function reposicionaRodape() {
                 $('#rodape').css("margin-top", function() {
                     var valor = $('body').height() - $('.row').height() - $('#rodape').height();
                     if(valor > 0){
@@ -21,18 +281,8 @@
                         return 30;
                     }
                 });
-            });
-            
-            $(window).resize(function() {
-               $('#rodape').css("margin-top", function() {
-                    var valor = $('body').height() - $('.row').height() - $('#rodape').height();
-                   if(valor > 0){
-                       return valor;
-                   } else {
-                       return 30;
-                   }
-               }); 
-            });
+                setTimeout(reposicionaRodape, 100);
+            }
         </script>
     </head>
     <body class="corpo_geral">
@@ -47,37 +297,92 @@
                             PIM AEV
                 </a>
                     <span id="links">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                        <a href="#">Link 4</a>
+                        <a href="home.jsp">Home</a>
+                        <a href="produto.jsp">Produtos</a>
+                        <a href="funcionario.jsp">Funcionários</a>
                     </span>
                 </div>
             </div>
             
             <div class="full_body">
                 <div class="full_body_text">
-                    <h1>Lorem Ipsum</h1>
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget porta nisl. Sed volutpat enim sit amet neque tristique, sed aliquam nisi aliquam. Nam ultricies tellus dui, eget cursus magna euismod eget. Quisque augue enim, dapibus ut neque ut, posuere eleifend quam. Vivamus lacinia sem purus, nec porta nisi efficitur vitae. Nunc sollicitudin massa eget massa consequat convallis. Fusce ac viverra nisi. Aenean ut feugiat ex. Proin tincidunt, velit at feugiat congue, leo felis bibendum mauris, eu euismod arcu urna in purus. Donec tempus, mi sed pharetra ornare, erat purus consectetur dui, at semper dolor neque id velit. Sed a leo nec eros vulputate varius ut vitae massa. Phasellus condimentum dignissim lacus, ac ornare libero gravida ac. Praesent nec lorem rhoncus ante faucibus venenatis. Cras non libero vel lectus iaculis mollis. Ut non enim sapien. Integer sed urna id sapien congue bibendum.<br><br>
-
-Etiam est ipsum, lobortis sed lectus eget, facilisis pharetra dolor. Vestibulum vitae nisi turpis. Maecenas cursus malesuada pellentesque. Duis id interdum ex, a porttitor lacus. Curabitur et iaculis velit. Praesent ultricies faucibus dui sit amet dictum. Sed hendrerit libero sit amet odio lobortis imperdiet. Cras vitae quam sed dui ultrices luctus. Phasellus nisi nunc, elementum a porta non, gravida vitae augue. Nam faucibus eget mi quis vulputate. Praesent rutrum odio sit amet elit finibus elementum.<br><br>
-
-Integer nibh nunc, pretium nec semper vel, vestibulum non dolor. Pellentesque non dolor vel leo ultricies congue rhoncus eu lacus. Proin eleifend turpis sit amet dictum feugiat. Nunc interdum varius mattis. Vestibulum molestie, quam at tempus feugiat, nibh urna gravida augue, at ornare metus quam sed nisi. Vivamus euismod dictum eros, tempor vehicula turpis porttitor vel. Suspendisse tempus consectetur dolor sit amet scelerisque.<br><br>
-
-Praesent nec tortor arcu. Proin id arcu risus. Sed bibendum feugiat luctus. Mauris efficitur fringilla dolor id porttitor. Nulla facilisi. Praesent egestas tellus malesuada felis ornare, ut mollis ligula dignissim. Nullam iaculis turpis id sem hendrerit, vel commodo purus eleifend. Fusce eu fringilla odio, id posuere nunc. Fusce vel gravida orci, id convallis ex. Mauris elementum arcu facilisis dolor molestie hendrerit. Pellentesque ut orci ultricies, mollis diam quis, efficitur ex. Fusce ut risus sed leo rutrum facilisis. Quisque scelerisque justo vitae commodo maximus. Curabitur egestas mi neque, id tincidunt lorem dapibus et. Curabitur eu tincidunt neque.<br><br>
-
-Ut varius erat eget fringilla molestie. Ut vitae porttitor risus. Aenean magna ipsum, vulputate eu dui sit amet, viverra rutrum urna. Donec aliquet ac sem ut blandit. Nullam vehicula consectetur ligula dignissim facilisis. Phasellus posuere fringilla mauris at viverra. Aliquam quis nunc placerat leo mollis fringilla a id odio. Mauris nec arcu metus. Nullam vitae tristique leo. Donec ac porttitor ligula, eget molestie libero. Sed sit amet dui tincidunt, ornare leo eu, pretium orci. In scelerisque diam eros, ultricies consequat mauris molestie non. Donec dignissim diam nec elit consequat congue. Ut eu lacinia massa.<br><br>
-
-Ut viverra fringilla est. Morbi in diam in felis egestas mattis vitae nec leo. Nullam maximus finibus purus sed hendrerit. Aenean tortor mauris, auctor eget sollicitudin eget, egestas et eros. Nam consectetur nibh ligula. Praesent consectetur imperdiet vulputate. Suspendisse potenti. Maecenas consequat justo nisi, a porta est faucibus vel. Aliquam neque lectus, molestie eget tempus in, viverra non nisl. Mauris facilisis bibendum congue. Mauris nec nibh in mi congue sollicitudin. Aliquam erat volutpat.<br><br>
-
-Proin nibh lectus, laoreet maximus ornare ut, rutrum at urna. Donec vulputate tempus pretium. Maecenas vitae massa eget orci eleifend posuere eu id nibh. Cras hendrerit non quam vitae vehicula. Morbi fringilla tincidunt tristique. Suspendisse consequat commodo accumsan. Ut tincidunt elit ac dolor eleifend mattis. In sit amet interdum ligula, eget feugiat sapien. Ut dapibus blandit ligula, nec pulvinar leo aliquam non. Etiam odio lectus, gravida eu dictum nec, efficitur ut risus. Suspendisse lacinia eros magna, congue tristique sapien pellentesque ac. Cras pellentesque est sit amet felis ultrices commodo.<br><br>
-
-Mauris ultricies lorem a nisl ullamcorper, sit amet fringilla sapien rhoncus. Aliquam tempus tellus in nisl volutpat, sed varius purus efficitur. Nullam commodo commodo lorem at tempus. Duis pharetra eros ut justo gravida laoreet. Quisque ornare sit amet enim in cursus. Maecenas nisi mi, varius id aliquam pretium, blandit eget enim. Quisque purus dui, placerat a euismod vitae, lobortis nec velit. Morbi volutpat tincidunt dignissim. Donec aliquet nibh tempus, aliquet augue quis, eleifend arcu. Vivamus quis hendrerit tellus.<br><br>
-
-Aenean fermentum dui neque, eget posuere urna porta sed. Praesent interdum convallis rutrum. Curabitur bibendum magna a augue varius volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse mattis purus vel sem dictum sollicitudin. Vivamus aliquet dui vel arcu scelerisque aliquet. Aliquam tempor metus lacus, eget convallis dolor accumsan vitae.<br><br>
-
-Nullam quis tristique purus, iaculis sodales risus. Suspendisse potenti. Maecenas pulvinar vehicula urna, et convallis lorem sollicitudin vel. Etiam faucibus erat id ex vehicula dapibus. Maecenas placerat at odio et auctor. Nullam nec neque arcu. Duis quis fringilla massa. Donec auctor, sapien sed vehicula aliquet, diam neque aliquam diam, ut condimentum orci justo sed est. Proin in enim faucibus, consequat mauris et, mollis quam. Proin justo nisi, gravida eget scelerisque quis, congue at odio. Praesent egestas urna ut felis eleifend, a fringilla nisl pharetra. Nulla vulputate malesuada magna, non porttitor diam accumsan quis. Proin laoreet nisl non diam condimentum, eget aliquam arcu auctor. Nunc hendrerit facilisis enim, quis commodo leo sodales ac. Sed maximus leo vitae nunc venenatis sollicitudin. Nulla quis velit eget purus ultrices iaculis et non erat. <br><br>
+                    <h1>Gráficos de Desempenho</h1>
+                    <div class="ui grid">
+                        <div class="eight wide column" id="areaGrafico">
+                            <h3 class="ui header">
+                                <i class="circular inverted bar chart icon"></i>
+                                Vendas por Dia da Semana
+                            </h3>
+                            <canvas id="vendaDiaSemana" width="500" height="400"></canvas>
+                            <div class="ui horizontal list"
+                                 style="margin-left: 20px; border: 1px solid rgba(0, 0, 0, 0.2); padding: 5px">
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Segunda</div>
+                                        <%= segunda %>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Terça</div>
+                                        <%= terca %>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Quarta</div>
+                                        <%= quarta %>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Quinta</div>
+                                        <%= quinta %>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Sexta</div>
+                                        <%= sexta %>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Sábado</div>
+                                        <%= sabado %>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Domingo</div>
+                                        <%= domingo %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eight wide column floated right" id="areaGrafico">
+                            <h3 class="ui header">
+                                <i class="circular inverted pie chart icon"></i>
+                                Vendas por Tipo de Produto
+                            </h3>
+                            <canvas id="vendaTipoProduto" width="500" height="400"></canvas>
+                            <ul class="ui list" style="position: absolute; margin-top: -250px; margin-left: 220px">
+                                <li>Tênis - <%= tenis %></li>
+                                <li>Chuteira - <%= chuteira %></li>
+                                <li>Sapato - <%= sapato %></li>
+                                <li>Bota - <%= bota %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ui grid">
+                    	<div class="sixteen wide column" id="areaGrafico">
+                    		<h3 class="ui header">
+                    			<i class="ui circular inverted bar chart icon"></i>
+                    			Vendas por Tipo de Produto vs Dia da Semana
+                    		</h3>
+                    		<canvas id="vendaTipoProdutoDiaSemana" width="1000" height="400"></canvas>
+                    	</div>
+                    </div>
                 </div>
             </div>
             
@@ -87,12 +392,144 @@ Nullam quis tristique purus, iaculis sodales risus. Suspendisse potenti. Maecena
                      style="margin-top: -5px; margin-left: 95%">
                 <div id="rodape_texto">
                     <span id="rodape_texto_bold">Desnevolvido por:<br></span>
-                    <span id="rodape_texto_bold">A</span>ndrÃ© Luiz Costa<br>
-                    <span id="rodape_texto_bold">E</span>dson de Assis DalÃ©cio<br>
+                    <span id="rodape_texto_bold">A</span>ndré Luiz Costa<br>
+                    <span id="rodape_texto_bold">E</span>dson de Assis Dalécio<br>
                     <span id="rodape_texto_bold">V</span>inicius Celms
                 </div>
             </div>
             
+            <script language="javascript" type="text/javascript">
+                var vendaDiaSemana = document.getElementById('vendaDiaSemana').getContext('2d');
+                var dataVendaDiaSemana = {
+                    labels: ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
+                    datasets: [
+                        {
+                            fillColor: "rgba(253, 178, 37, 1)",
+                            strokeColor: "rgba(0, 0, 0, 1)",
+                            highlightFill: "rgba(253, 192, 77, 1)",
+                            highlightStroke: "rgba(0, 0, 0, 1)",
+                            data: [
+                            	<%= segunda %>,
+                            	<%= terca %>,
+                            	<%= quarta %>,
+                            	<%= quinta %>,
+                            	<%= sexta %>,
+                            	<%= sabado %>,
+                            	<%= domingo %>
+                            ]
+                        }
+                    ]
+                };
+                
+                var optionsVendaDiaSemana = {
+                    scaleGridLineColor: "rgba(0, 0, 0, 0.1)",
+                    scaleGridLineWidth: 1,
+                    barStrokeWidth: 1,
+                    scaleShowVerticalLines: false,
+                };
+                new Chart(vendaDiaSemana).Bar(dataVendaDiaSemana, optionsVendaDiaSemana);
+                
+                var vendaTipoProduto = document.getElementById('vendaTipoProduto').getContext('2d');
+                var dataVendaTipoProduto = [
+                    {
+                        value: <%= tenis %>,
+                        color: "#EF3D31",
+                        highlight: "#EF7267",
+                        label: "Tênis"
+                    },
+                    {
+                        value: <%= chuteira %>,
+                        color: "#FDB225",
+                        highlight: "#FDD281",
+                        label: "Chuteira"
+                    },
+                    {
+                        value: <%= sapato %>,
+                        color: "#41C6F3",
+                        highlight: "#6FD6F3",
+                        label: "Sapato"
+                    },
+                    {
+                        value: <%= bota %>,
+                        color: "#017EC1",
+                        highlight: "#2D91C1",
+                        label: "Bota"
+                    }
+                ];
+                new Chart(vendaTipoProduto).Doughnut(dataVendaTipoProduto);
+                
+                var vendaTipoProdutoDiaSemana = document.getElementById('vendaTipoProdutoDiaSemana').getContext('2d');
+                var dataVendaTipoProdutoDiaSemana = {
+					labels: ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
+					datasets: [
+						{
+							label: "Tênis",
+							fillColor: "rgba(239, 61, 49, 1)",
+							strokeColor: "rgba(0, 0, 0, 1)",
+							highlightFill: "rgba(239, 114, 103, 1)",
+	                        highlightStroke: "rgba(0, 0, 0, 1)",
+	                        data: [
+								<%= segundaTenis %>,
+								<%= tercaTenis %>,
+								<%= quartaTenis %>,
+								<%= quintaTenis %>,
+								<%= sextaTenis %>,
+								<%= sabadoTenis %>,
+								<%= domingoTenis %>
+							]
+						},
+						{
+							label: "Chuteira",
+							fillColor: "rgba(253, 178, 37, 1)",
+							strokeColor: "rgba(0, 0, 0, 1)",
+							highlightFill: "rgba(253, 210, 129, 1)",
+	                        highlightStroke: "rgba(0, 0, 0, 1)",
+	                        data: [
+								<%= segundaChuteira %>,
+								<%= tercaChuteira %>,
+								<%= quartaChuteira %>,
+								<%= quintaChuteira %>,
+								<%= sextaChuteira %>,
+								<%= sabadoChuteira %>,
+								<%= domingoChuteira %>
+							]
+						},
+						{
+							label: "Sapato",
+							fillColor: "rgba(65, 198, 243, 1)",
+							strokeColor: "rgba(0, 0, 0, 1)",
+							highlightFill: "rgba(111, 214, 243, 1)",
+	                        highlightStroke: "rgba(0, 0, 0, 1)",
+	                        data: [
+								<%= segundaSapato %>,
+								<%= tercaSapato %>,
+								<%= quartaSapato %>,
+								<%= quintaSapato %>,
+								<%= sextaSapato %>,
+								<%= sabadoSapato %>,
+								<%= domingoSapato %>
+							]
+						},
+						{
+							label: "Bota",
+							fillColor: "rgba(1, 126, 193, 1)",
+							strokeColor: "rgba(0, 0, 0, 1)",
+							highlightFill: "rgba(45, 145, 193, 1)",
+	                        highlightStroke: "rgba(0, 0, 0, 1)",
+	                        data: [
+								<%= segundaBota %>,
+								<%= tercaBota %>,
+								<%= quartaBota %>,
+								<%= quintaBota %>,
+								<%= sextaBota %>,
+								<%= sabadoBota %>,
+								<%= domingoBota %>
+							]
+						}
+					]
+				};
+                new Chart(vendaTipoProdutoDiaSemana).Bar(dataVendaTipoProdutoDiaSemana, optionsVendaDiaSemana);
+            </script>
         </span>
     </body>
 </html>

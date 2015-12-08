@@ -289,3 +289,20 @@ i#iconeContratacao
 	cursor: pointer;
 	color: #FF0000;
 }
+
+#areaGrafico
+{
+    background-color: #F7F7F9;
+    border-radius: 10px;
+    border-top: 4px solid #017EC1;
+    border-bottom: 4px solid #017EC1;
+    border-left: 1px solid #017EC1;
+    border-right: 1px solid #017EC1;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#areaGrafico h3
+{
+    font-family: "Oswald-Light", cursive;
+}
