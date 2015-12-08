@@ -124,14 +124,15 @@ public class UsuarioDAO {
 			else{
 				stmt.setString(1, recebeLogin);
 				stmt.setString(2, recebeSenha);
-
 				ResultSet rs = stmt.executeQuery();
-				login = rs.getString("usu_login");
-				senha = rs.getString("usu_senha");
-				status = rs.getInt("id_status");
+				while(rs.next()){
+					login = rs.getString("usu_login");
+					senha = rs.getString("usu_senha");
+					status = rs.getInt("id_status");
+				}
 				rs.close();
 
-				if(recebeLogin == login && recebeSenha == senha && (status == 1 || status == 2)){
+				if(recebeLogin.equals(login) && recebeSenha.equals(senha) && (status == 1 || status == 2)){
 					verificaLogin =  true;
 				}
 				else{
