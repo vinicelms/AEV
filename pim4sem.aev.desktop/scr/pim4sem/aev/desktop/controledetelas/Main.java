@@ -13,15 +13,18 @@ public class Main extends Application{
 	public static String EstoqueTelaFile = "EstoqueTela.fxml";
 	public static String VendasTelaID = "VendasTela";
 	public static String VendasTelaFile = "VendasTela.fxml";	
+	public static String LoginTelaID = "LoginTela";
+	public static String LoginTelaFile = "LoginTela.fxml";	
 	
 	@Override
 	public void start(Stage primaryStage){
 		ScreensController mainContainer = new ScreensController();
+		mainContainer.loadScreen(Main.LoginTelaID, LoginTelaFile);
 		mainContainer.loadScreen(Main.MenuTelaID, MenuTelaFile);
 		mainContainer.loadScreen(Main.EstoqueTelaID, EstoqueTelaFile);
 		mainContainer.loadScreen(Main.VendasTelaID, VendasTelaFile);
 		
-		mainContainer.setScreen(Main.MenuTelaID);
+		mainContainer.setScreen(Main.LoginTelaID);
 		
 		Group root = new Group();
 		root.getChildren().addAll(mainContainer);
@@ -31,28 +34,6 @@ public class Main extends Application{
 		primaryStage.show();
 	}
 	
-	
-	
-	
-	
-/*
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		try {
-			String sceneName;
-			sceneName = "MenuTela.fxml";
-			//sceneName = "EstoqueTela.fxml";
-			
-			Pane root = FXMLLoader.load(getClass().getResource(sceneName));
-			Scene scene = new Scene(root,800,600);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}		
-	}
-*/
 	public static void main(String[] args) {
 		launch(args);
 	}
