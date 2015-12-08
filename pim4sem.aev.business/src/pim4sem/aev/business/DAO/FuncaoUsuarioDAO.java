@@ -7,14 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.javafx.collections.TrackableObservableList;
-
 public class FuncaoUsuarioDAO {
 
 	public void registraFuncaoUsuario(String recebeFuncao) throws SQLException{
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sql = "INSERT INTO FuncaoUsuario (nome_funcao) VALUES (?)";
+		String sql = "INSERT INTO FuncaoUsuario (nome_funcao, ativo) VALUES (?, 1)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
@@ -36,7 +34,7 @@ public class FuncaoUsuarioDAO {
 		
 		int retornaId = 0;
 		
-		String sql = "SELECT id_funcao FROM Funcao WHERE nome_funcao = ?";
+		String sql = "SELECT id_funcao FROM FuncaoUsuario WHERE nome_funcao = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		

@@ -102,7 +102,7 @@ public class NotaFiscalDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
 				NotaFiscal notaFiscal = new NotaFiscal();
-				Funcionario funcionario = null;
+				Funcionario funcionario = new Funcionario() {};
 				notaFiscal.setCodigoNotaFiscal(rs.getInt("Codigo Nota Fiscal"));
 				funcionario.setMatricula(rs.getInt("Matricula"));
 				notaFiscal.setFuncionario(funcionario);

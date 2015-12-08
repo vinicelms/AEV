@@ -17,7 +17,7 @@ public class UsuarioDAO {
 		Connection conn = new ConnectionFactory().getConnection();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO Usuario (usu_login, usu_senha, usu_nome, e_funcionario, id_funcao) ");
+		sql.append("INSERT INTO Usuario (usu_login, usu_senha, usu_nome, e_funcionario, id_funcao, id_status) ");
 		sql.append("VALUES (?, ?, ?, ?, ?, ?)");
 
 		PreparedStatement stmt = conn.prepareStatement(sql.toString());
