@@ -11,10 +11,8 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# Alterações pessoais
+# Personal changes
 .classpath
 .project
-/pim4sem.aev.desktop/.claspath
-pim4sem.aev.web/.settings/
-/pim4sem.aev.business/.classpath
 /bin/
+/src/pim4sem/aev/business/DAO/ConnectionFactory.java
