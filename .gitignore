@@ -15,4 +15,3 @@ hs_err_pid*
 .classpath
 .project
 /bin/
-/src/pim4sem/aev/business/DAO/ConnectionFactory.java
